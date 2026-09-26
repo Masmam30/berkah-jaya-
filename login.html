@@ -91,6 +91,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
         import { getDatabase } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getStorage } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAyuaw2p9dCsSMRNHwzPMVfZ9MHLs79-bU",
@@ -103,9 +104,8 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const db = getDatabase(app);
-        window.firebaseDB = db;
+        window.firebaseDB = getDatabase(app);
+        window.firebaseStorage = getStorage(app);
     </script>
 
     <!-- JavaScript Autentikasi -->
@@ -161,7 +161,7 @@
 
             if (validAccount) {
                 localStorage.setItem('admin_logged_in', 'true');
-                window.location.href = 'admin.html';
+                window.location.href = 'admin_2.html';
             } else {
                 document.getElementById('login-error').classList.remove('hidden');
             }
