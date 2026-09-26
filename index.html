@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berkah Jaya Property & Contractor | Konstruksi Properti & Kontraktor</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navyPrimary: '#0A192F',
+                        navySecondary: '#112240',
+                        bronzeGold: '#C5A059',
+                        bronzeHover: '#B08C45',
+                        slateText: '#8892B0',
+                        lightBg: '#F8FAFC',
+                        cardWhite: '#FFFFFF',
+                        borderColor: '#E2E8F0',
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Cropper.js CSS untuk Fitur Crop Foto Proporsional -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <style>
+        .card-shadow { box-shadow: 0 10px 30px -5px rgba(10, 25, 47, 0.05); }
+        .card-shadow-hover:hover {
+            box-shadow: 0 20px 40px -10px rgba(10, 25, 47, 0.12);
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+<body class="bg-lightBg text-navyPrimary font-sans antialiased selection:bg-bronzeGold selection:text-white">
+
+    <!-- Floating WhatsApp Button -->
+    <a id="floating-wa-btn" href="https://wa.me/6281234567890?text=Halo%20Berkah%20Jaya%20Property,%20saya%20ingin%20konsultasi%20mengenai%20proyek%20konstruksi" target="_blank" class="fixed bottom-8 right-8 z-50 bg-bronzeGold text-white p-4 rounded-2xl shadow-xl hover:bg-navyPrimary transition duration-500 flex items-center justify-center">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <!-- Floating Promo Box (Dinamis dari Admin) -->
+    <div id="floating-promo-box" class="fixed bottom-8 left-8 z-40 bg-navyPrimary text-white p-4 rounded-2xl shadow-2xl border border-bronzeGold/40 max-w-xs flex items-center gap-3 transition-all duration-500">
+        <button onclick="closeFloatingPromo()" class="absolute -top-2.5 -right-2.5 w-6 h-6 bg-rose-500 text-white rounded-full flex items-center justify-center text-xs font-bold hover:bg-rose-600 transition shadow">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="w-10 h-10 bg-bronzeGold text-navyPrimary rounded-xl flex items-center justify-center text-lg font-bold shrink-0">
+            <i class="fas fa-percent"></i>
+        </div>
+        <div class="space-y-0.5">
+            <span id="promo-badge-title" class="text-[9px] uppercase tracking-wider font-bold text-bronzeGold block">Promo Spesial Bulan Ini</span>
+            <p id="promo-badge-desc" class="text-xs font-medium text-slateText leading-tight">Diskon 10% Jasa Pengelolaan & Free Survey Lokasi!</p>
+        </div>
+    </div>
+
+    <!-- Header / Navbar dengan Posisi Teks Rata Kiri Sepenuhnya -->
+    <header class="fixed w-full bg-navyPrimary/95 backdrop-blur-md text-white z-40 border-b border-navySecondary/60 transition duration-500 shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center space-x-3 cursor-pointer group shrink-0" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <div id="brand-logo-container" class="w-10 h-10 bg-bronzeGold text-navyPrimary font-serif font-bold text-xl rounded-xl flex items-center justify-center shadow-md overflow-hidden shrink-0 border border-bronzeGold/30 group-hover:scale-105 transition duration-300">
+                        <span id="brand-logo-text" class="leading-none">B</span>
+                        <img id="brand-logo-img" src="" alt="Logo" class="w-full h-full object-cover hidden">
+                    </div>
+                    <div class="flex flex-col items-start justify-center whitespace-nowrap">
+                        <span id="brand-name-el" class="font-serif font-bold text-sm sm:text-base tracking-wider block text-white leading-tight">BERKAH JAYA</span>
+                        <span id="brand-tagline-el" class="text-[8px] sm:text-[9px] tracking-[0.15em] uppercase font-semibold text-bronzeGold leading-none mt-1">Property & Contractor</span>
+                    </div>
+                </div>
+                
+                <nav class="hidden lg:flex space-x-8 text-xs tracking-widest uppercase font-semibold text-slateText">
+                    <a href="#layanan-produk" class="hover:text-bronzeGold transition">Layanan & Produk</a>
+                    <a href="#company-profile" class="hover:text-bronzeGold transition">Profil Perusahaan</a>
+                    <a href="#alur-garansi" class="hover:text-bronzeGold transition">Alur & Garansi</a>
+                    <a href="#galeri" class="hover:text-bronzeGold transition">Galeri Proyek</a>
+                    <a href="#before-after" class="hover:text-bronzeGold transition">Sebelum & Sesudah</a>
+                    <a href="#download-katalog" class="hover:text-bronzeGold transition">Minta RAB</a>
+                    <a href="#kalkulator" class="hover:text-bronzeGold transition">Simulasi Biaya</a>
+                </nav>
+
+                <div class="hidden lg:flex items-center shrink-0">
+                    <a id="nav-wa-btn" href="https://wa.me/6281234567890?text=Halo%20Berkah%20Jaya%20Property,%20saya%20ingin%20konsultasi" target="_blank" class="bg-bronzeGold text-navyPrimary hover:bg-white px-5 py-2.5 rounded-xl text-xs font-bold tracking-widest uppercase transition duration-300 shadow-sm">
+                        Konsultasi WA
+                    </a>
+                </div>
+
+                <div class="lg:hidden">
+                    <button id="menu-btn" class="text-white text-2xl focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-navySecondary border-b border-navyPrimary px-6 py-6 space-y-4 text-xs font-semibold uppercase tracking-wider">
+            <a href="#layanan-produk" class="block py-1 text-slateText hover:text-bronzeGold">Layanan & Produk</a>
+            <a href="#company-profile" class="block py-1 text-slateText hover:text-bronzeGold">Profil Perusahaan</a>
+            <a href="#alur-garansi" class="block py-1 text-slateText hover:text-bronzeGold">Alur Kerja & Garansi</a>
+            <a href="#galeri" class="block py-1 text-slateText hover:text-bronzeGold">Galeri Proyek</a>
+            <a href="#before-after" class="block py-1 text-slateText hover:text-bronzeGold">Sebelum & Sesudah</a>
+            <a href="#download-katalog" class="block py-1 text-slateText hover:text-bronzeGold">Minta RAB & Brosur</a>
+            <a href="#kalkulator" class="block py-1 text-slateText hover:text-bronzeGold">Simulasi Biaya</a>
+        </div>
+    </header>
+
+    <!-- Professional Hero Section dengan Video Background & Transparansi Disesuaikan -->
+    <section class="relative min-h-[90vh] pt-32 pb-20 md:pt-40 md:pb-28 bg-navyPrimary text-white overflow-hidden flex items-center">
+        <video id="main-hero-video" autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" class="absolute inset-0 w-full h-full object-cover z-0 opacity-40">
+            <source id="main-hero-source" src="https://assets.mixkit.co/videos/preview/mixkit-modern-architecture-building-41225-large.mp4" type="video/mp4">
+            Browser Anda tidak mendukung pemutaran video.
+        </video>
+
+        <div class="absolute inset-0 bg-gradient-to-r from-navyPrimary/70 via-navyPrimary/50 to-navyPrimary/30 z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-20 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6">
+                    <span class="inline-block px-4 py-1.5 bg-navySecondary/90 text-bronzeGold rounded-lg text-xs font-bold uppercase tracking-[0.2em] border border-bronzeGold/30 backdrop-blur-sm shadow-sm">
+                        Kontraktor Umum & Pengembang Properti
+                    </span>
+                    <h1 class="font-serif text-4xl md:text-6xl font-bold leading-[1.15] text-white">
+                        Solusi Konstruksi <span class="text-bronzeGold">Presisi, Premium,</span> & Terpercaya.
+                    </h1>
+                    <p class="text-slateText text-base md:text-lg font-normal leading-relaxed max-w-xl">
+                        Spesialis Pembangunan Rumah dari Nol, Renovasi Total, serta Desain Interior & Eksterior dengan garansi resmi dan alur pengerjaan transparan.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <a href="#layanan-produk" class="bg-bronzeGold text-navyPrimary px-8 py-4 rounded-xl font-bold text-xs tracking-widest uppercase hover:bg-white transition duration-300 shadow-lg">
+                            Lihat Produk & Layanan
+                        </a>
+                        <a href="#download-katalog" class="bg-navySecondary/90 text-white px-8 py-4 rounded-xl font-bold text-xs tracking-widest uppercase hover:bg-bronzeGold hover:text-navyPrimary transition duration-300 border border-slateText/20 backdrop-blur-sm shadow-sm">
+                            Minta Penawaran RAB
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5">
+                    <div class="bg-navySecondary/95 backdrop-blur-md p-4 rounded-2xl border border-bronzeGold/30 card-shadow relative">
+                        <img id="hero-card-img-el" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80" alt="Properti Profesional" class="rounded-xl w-full h-80 object-cover">
+                        <div class="p-4 bg-navyPrimary rounded-xl mt-3 shadow-inner flex justify-between items-center border border-navySecondary">
+                            <div>
+                                <h3 id="hero-card-title-el" class="font-serif font-bold text-white text-sm">Berkah Luxury Residence</h3>
+                                <p id="hero-card-desc-el" class="text-slateText text-[11px]"><i class="fas fa-certificate text-bronzeGold mr-1"></i> Standar Arsitektur Modern</p>
+                            </div>
+                            <span id="hero-card-price-el" class="text-bronzeGold font-bold text-sm">Mulai Rp 3,5 Jt / m²</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEKSI LAYANAN & PRODUK UTAMA (DINAMIS DARI ADMIN PANEL) -->
+    <section id="layanan-produk" class="py-20 bg-white border-t border-borderColor">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-xs font-bold text-bronzeGold uppercase tracking-[0.2em] block mb-2">Pilihan Produk & Layanan</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-navyPrimary mb-3">Solusi Konstruksi Terintegrasi</h2>
+                <p class="text-slateText text-sm leading-relaxed">Pilih kategori pekerjaan di bawah untuk melihat rincian produk yang dikelola secara dinamis.</p>
+            </div>
+
+            <!-- Tombol Filter 4 Kategori Utama -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button onclick="filterProductCategory('all')" class="prod-filter-btn font-bold text-xs uppercase tracking-widest px-5 py-3 rounded-xl bg-navyPrimary text-white shadow-sm transition">Semua Produk</button>
+                <button onclick="filterProductCategory('Pembangunan Dari Nol')" class="prod-filter-btn font-bold text-xs uppercase tracking-widest px-5 py-3 rounded-xl bg-lightBg text-navyPrimary border border-borderColor hover:bg-bronzeGold hover:text-navyPrimary transition">1. Pembangunan dari Nol</button>
+                <button onclick="filterProductCategory('Renovasi')" class="prod-filter-btn font-bold text-xs uppercase tracking-widest px-5 py-3 rounded-xl bg-lightBg text-navyPrimary border border-borderColor hover:bg-bronzeGold hover:text-navyPrimary transition">2. Renovasi</button>
+                <button onclick="filterProductCategory('Desain Interior')" class="prod-filter-btn font-bold text-xs uppercase tracking-widest px-5 py-3 rounded-xl bg-lightBg text-navyPrimary border border-borderColor hover:bg-bronzeGold hover:text-navyPrimary transition">3. Desain Interior</button>
+                <button onclick="filterProductCategory('Desain Eksterior')" class="prod-filter-btn font-bold text-xs uppercase tracking-widest px-5 py-3 rounded-xl bg-lightBg text-navyPrimary border border-borderColor hover:bg-bronzeGold hover:text-navyPrimary transition">4. Desain Eksterior</button>
+            </div>
+
+            <!-- Grid Container Produk Dinamis -->
+            <div id="dynamic-products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Render Otomatis via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SEKSI COMPANY PROFILE DENGAN FOTO KANTOR -->
+    <section id="company-profile" class="py-20 bg-lightBg border-t border-borderColor">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Kolom Kiri: Tentang & Foto Kantor -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div>
+                        <span class="text-xs font-bold text-bronzeGold uppercase tracking-[0.2em] block mb-2">Tentang Kami</span>
+                        <h2 class="font-serif text-3xl md:text-4xl font-bold text-navyPrimary">Berkah Jaya Property & Contractor</h2>
+                    </div>
+                    <p class="text-slateText text-xs md:text-sm leading-relaxed">
+                        Kami adalah kontraktor umum dan pengembang properti terpercaya yang berfokus pada kualitas presisi tinggi, material berstandar SNI, serta transparansi penuh dalam setiap Rencana Anggaran Biaya (RAB).
+                    </p>
+                    
+                    <!-- Foto Kantor -->
+                    <div class="relative rounded-2xl overflow-hidden border border-borderColor card-shadow">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1000&q=80" alt="Kantor Berkah Jaya Property" class="w-full h-56 object-cover">
+                        <div class="absolute bottom-0 inset-x-0 bg-navyPrimary/90 backdrop-blur-md p-3 text-white text-center border-t border-bronzeGold/20">
+                            <span class="text-xs font-bold tracking-wider text-bronzeGold"><i class="fas fa-building mr-1"></i> Suasana Kantor & Ruang Konsultasi Klien</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl border border-borderColor shadow-sm">
+                            <div class="text-bronzeGold font-bold text-base mb-1"><i class="fas fa-shield-alt mr-1"></i> Garansi Resmi</div>
+                            <p class="text-[11px] text-slateText leading-relaxed">Pemeliharaan struktur & kebocoran hingga 10 tahun.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-borderColor shadow-sm">
+                            <div class="text-bronzeGold font-bold text-base mb-1"><i class="fas fa-handshake mr-1"></i> Transparan</div>
+                            <p class="text-[11px] text-slateText leading-relaxed">Sistem pembayaran bertahap sesuai progres lapangan.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kolom Kanan: Kontak & Alamat Kantor Resmi -->
+                <div class="lg:col-span-6">
+                    <div class="bg-navyPrimary text-white p-8 md:p-10 rounded-2xl border border-bronzeGold/30 card-shadow space-y-6">
+                        <h3 class="font-serif font-bold text-xl text-bronzeGold border-b border-navySecondary pb-4">Kontak & Alamat Kantor Resmi</h3>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-navySecondary text-bronzeGold rounded-xl flex items-center justify-center shrink-0 border border-bronzeGold/30">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-slateText mb-1">Alamat Kantor Utama</h4>
+                                <p id="profile-display-alamat" class="text-xs text-white leading-relaxed">Jl. Raya Properti No. 12, Jakarta Selatan</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-navySecondary text-bronzeGold rounded-xl flex items-center justify-center shrink-0 border border-bronzeGold/30">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-slateText mb-1">Nomor WhatsApp / Telepon</h4>
+                                <p id="profile-display-wa" class="text-xs font-mono font-bold text-white">6281234567890</p>
+                            </div>
+                        </div>
+
+                        <div class="pt-2">
+                            <a id="profile-btn-wa" href="https://wa.me/6281234567890" target="_blank" class="w-full bg-bronzeGold text-navyPrimary font-bold py-4 rounded-xl text-xs uppercase tracking-widest hover:bg-white transition shadow-md flex items-center justify-center gap-2">
+                                <i class="fab fa-whatsapp text-sm"></i> Hubungi Kantor via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEKSI ALUR KERJA TRANSPARAN & GARANSI RESMI -->
+    <section id="alur-garansi" class="py-20 bg-white border-t border-borderColor">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold text-bronzeGold uppercase tracking-[0.2em] block mb-2">Sistem Kerja Terpercaya</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-navyPrimary mb-3">4 Langkah Pengerjaan & Garansi Resmi</h2>
+                <p class="text-slateText text-sm leading-relaxed">Kami menjamin proses pengerjaan yang bebas dari rasa khawatir, aman secara anggaran, dan bergaransi kualitas.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Langkah 1 -->
+                <div class="bg-lightBg p-8 rounded-2xl border border-borderColor card-shadow card-shadow-hover transition duration-500 relative flex flex-col justify-between">
+                    <span class="absolute -top-3 left-6 bg-bronzeGold text-navyPrimary text-[11px] font-serif font-bold px-3 py-1 rounded-md shadow">Langkah 01</span>
+                    <div>
+                        <div class="w-14 h-14 bg-white text-bronzeGold rounded-xl flex items-center justify-center text-xl font-bold mb-6 mt-2 border border-borderColor shadow-sm">
+                            <i class="fas fa-drafting-compass"></i>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-navyPrimary mb-2">Konsultasi & Survey</h3>
+                        <p class="text-slateText text-xs leading-relaxed mb-4">
+                            Tim ahli kami melakukan pengukuran langsung ke lokasi proyek Anda secara teliti <strong class="text-navyPrimary">100% Bebas Biaya (Gratis)</strong>.
+                        </p>
+                    </div>
+                    <span class="text-[11px] text-emerald-600 font-bold flex items-center gap-1">
+                        <i class="fas fa-check-circle"></i> Bebas Biaya Awal
+                    </span>
+                </div>
+
+                <!-- Langkah 2 -->
+                <div class="bg-lightBg p-8 rounded-2xl border border-borderColor card-shadow card-shadow-hover transition duration-500 relative flex flex-col justify-between">
+                    <span class="absolute -top-3 left-6 bg-bronzeGold text-navyPrimary text-[11px] font-serif font-bold px-3 py-1 rounded-md shadow">Langkah 02</span>
+                    <div>
+                        <div class="w-14 h-14 bg-white text-bronzeGold rounded-xl flex items-center justify-center text-xl font-bold mb-6 mt-2 border border-borderColor shadow-sm">
+                            <i class="fas fa-file-signature"></i>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-navyPrimary mb-2">RAB & Kontrak Resmi</h3>
+                        <p class="text-slateText text-xs leading-relaxed mb-4">
+                            Penyusunan Rencana Anggaran Biaya (RAB) rinci & surat perjanjian kerja resmi berpayung hukum. <strong class="text-navyPrimary">Harga mengikat tanpa biaya siluman.</strong>
+                        </p>
+                    </div>
+                    <span class="text-[11px] text-emerald-600 font-bold flex items-center gap-1">
+                        <i class="fas fa-check-circle"></i> Anggaran Mengikat
+                    </span>
+                </div>
+
+                <!-- Langkah 3 -->
+                <div class="bg-lightBg p-8 rounded-2xl border border-borderColor card-shadow card-shadow-hover transition duration-500 relative flex flex-col justify-between">
+                    <span class="absolute -top-3 left-6 bg-bronzeGold text-navyPrimary text-[11px] font-serif font-bold px-3 py-1 rounded-md shadow">Langkah 03</span>
+                    <div>
+                        <div class="w-14 h-14 bg-white text-bronzeGold rounded-xl flex items-center justify-center text-xl font-bold mb-6 mt-2 border border-borderColor shadow-sm">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-navyPrimary mb-2">Pengerjaan & Laporan</h3>
+                        <p class="text-slateText text-xs leading-relaxed mb-4">
+                            Konstruksi dilaksanakan oleh tukang berpengalaman dengan sistem pengawasan berlapis dan <strong class="text-navyPrimary">laporan progres rutin foto/video mingguan</strong>.
+                        </p>
+                    </div>
+                    <span class="text-[11px] text-emerald-600 font-bold flex items-center gap-1">
+                        <i class="fas fa-check-circle"></i> Laporan Transparan
+                    </span>
+                </div>
+
+                <!-- Langkah 4 -->
+                <div class="bg-navyPrimary text-white p-8 rounded-2xl border-2 border-bronzeGold card-shadow card-shadow-hover transition duration-500 relative flex flex-col justify-between">
+                    <span class="absolute -top-3 left-6 bg-bronzeGold text-navyPrimary text-[11px] font-serif font-bold px-3 py-1 rounded-md shadow">Langkah 04</span>
+                    <div>
+                        <div class="w-14 h-14 bg-navySecondary text-bronzeGold rounded-xl flex items-center justify-center text-xl font-bold mb-6 mt-2 border border-bronzeGold/30">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-white mb-2">Serah Terima & Garansi</h3>
+                        <p class="text-slateText text-xs leading-relaxed mb-4">
+                            Pemeriksaan akhir bersama klien dan penyerahan <strong class="text-bronzeGold">Sertifikat Garansi Pemeliharaan Kebocoran & Struktur Utama hingga 10 Tahun</strong>.
+                        </p>
+                    </div>
+                    <span class="text-[11px] text-bronzeGold font-bold flex items-center gap-1">
+                        <i class="fas fa-certificate"></i> Garansi Resmi Terjamin
+                    </span>
+                </div>
+            </div>
+
+            <!-- Banner Komitmen Tambahan -->
+            <div class="mt-12 bg-lightBg p-8 rounded-2xl border border-borderColor card-shadow flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-white text-emerald-600 rounded-xl flex items-center justify-center text-xl shrink-0 border border-borderColor shadow-sm">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-serif font-bold text-navyPrimary text-sm">Jaminan Bebas Keraguan & Tepat Waktu</h4>
+                        <p class="text-xs text-slateText">Sistem pembayaran bertahap (*pay-as-you-build*) disesuaikan 100% dengan hasil pengerjaan di lapangan.</p>
+                    </div>
+                </div>
+                <a href="#survey" class="bg-bronzeGold text-navyPrimary font-bold px-6 py-3.5 rounded-xl text-xs uppercase tracking-widest hover:bg-navyPrimary hover:text-white transition whitespace-nowrap shadow-md">
+                    Jadwalkan Survey Gratis
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEKSI GALERI PROYEK (DINAMIS INDEXEDDB MULTI-FOTO) -->
+    <section id="galeri" class="py-20 bg-lightBg border-t border-borderColor">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-xs font-bold text-bronzeGold uppercase tracking-[0.2em] block mb-2">Portofolio Pekerjaan</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-navyPrimary mb-3">Galeri Proyek Selesai</h2>
+                <p class="text-slateText text-sm leading-relaxed">Klik pada proyek untuk melihat seluruh dokumentasi foto hasil pengerjaan.</p>
+            </div>
+
+            <!-- Grid Album Proyek -->
+            <div id="dynamic-gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Injected via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SEKSI BEFORE & AFTER (DINAMIS TERHUBUNG KE ADMIN INDEXEDDB) -->
+    <section id="before-after" class="py-20 bg-white border-t border-borderColor">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold text-bronzeGold uppercase tracking-[0.2em] block mb-2">Transformasi Proyek</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-navyPrimary mb-3">Galeri Sebelum & Sesudah</h2>
+                <p class="text-slateText text-sm leading-relaxed">Geser indikator untuk melihat hasil perubahan konstruksi.</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="relative w-full h-[350px] md:h-[480px] rounded-2xl overflow-hidden card-shadow select-none border border-borderColor" id="slider-container">
+                    <img id="ba-img-after" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="Sesudah" class="absolute inset-0 w-full h-full object-cover">
+                    <div id="before-image-wrapper" class="absolute inset-0 w-full h-full overflow-hidden" style="width: 50%;">
+                        <img id="ba-img-before" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80" alt="Sebelum" class="absolute inset-0 w-full h-full object-cover max-w-none" id="before-img-inner">
+                    </div>
+
+                    <span class="absolute top-6 left-6 bg-navyPrimary/90 backdrop-blur-md text-white text-xs font-bold px-4 py-2 rounded-lg">SEBELUM</span>
+                    <span class="absolute top-6 right-6 bg-bronzeGold/90 backdrop-blur-md text-navyPrimary text-xs font-bold px-4 py-2 rounded-lg">SESUDAH</span>
+
+                    <div id="slider-handle" class="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize z-20" style="left: 50%;">
+                        <div class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 bg-white text-navyPrimary rounded-full shadow-2xl flex items-center justify-center font-bold text-xs">
+                            <i class="fas fa-arrows-alt-h text-bronzeGold"></i>
+                        </div>
+                    </div>
+                    <input type="range" min="0" max="100" value="50" id="before-after-slider" class="absolute inset-0 opacity-0 w-full h-full cursor-ew-resize z-30">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORM REQUEST BROSUR & RAB PDF -->
+    <section id="download-katalog" class="py-20 bg-navyPrimary text-white border-t border-navySecondary">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="bg-navySecondary p-8 md:p-12 rounded-2xl border border-bronzeGold/30 card-shadow max-w-4xl mx-auto text-center">
+                <span class="text-xs font-bold text-bronzeGold uppercase tracking-[0.2em] block mb-2">Permintaan Penawaran RAB Resmi</span>
+                <h2 class="font-serif text-2xl md:text-4xl font-bold text-white mb-3">Dapatkan Brosur & Permintaan RAB Pesanan</h2>
+                <p class="text-slateText text-sm max-w-xl mx-auto mb-8 leading-relaxed">
+                    Isi rincian pekerjaan yang ingin Anda pesan di bawah ini agar estimasi Rencana Anggaran Biaya (RAB) dibuat secara rinci dan presisi.
+                </p>
+
+                <form onsubmit="handleDownloadCatalog(event)" class="max-w-xl mx-auto space-y-4 text-left">
+                    <div>
+                        <label class="block text-[11px] font-bold text-slateText uppercase tracking-wider mb-1.5">Nama Lengkap</label>
+                        <input type="text" id="lead-nama" required placeholder="Contoh: Bpk. Ahmad Hendra" class="w-full bg-navyPrimary border border-navySecondary rounded-xl p-3.5 text-xs text-white focus:outline-none focus:border-bronzeGold">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-bold text-slateText uppercase tracking-wider mb-1.5">Nomor WhatsApp Pribadi</label>
+                        <input type="tel" id="lead-wa" required placeholder="Contoh: 081234567890" class="w-full bg-navyPrimary border border-navySecondary rounded-xl p-3.5 text-xs text-white focus:outline-none focus:border-bronzeGold">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-bold text-slateText uppercase tracking-wider mb-1.5">Pekerjaan / Pesanan Yang Ingin Dibuatkan RAB</label>
+                        <select id="lead-kategori" class="w-full bg-navyPrimary border border-navySecondary rounded-xl p-3.5 text-xs text-white focus:outline-none focus:border-bronzeGold mb-2">
+                            <option value="Pembangunan Dari Nol">1. Pembangunan Dari Nol</option>
+                            <option value="Renovasi">2. Renovasi</option>
+                            <option value="Desain Interior">3. Desain Interior</option>
+                            <option value="Desain Eksterior">4. Desain Eksterior</option>
+                        </select>
+                        <textarea id="lead-pesanan" rows="3" required placeholder="Tuliskan keterangan detail pesanan Anda..." class="w-full bg-navyPrimary border border-navySecondary rounded-xl p-3.5 text-xs text-white focus:outline-none focus:border-bronzeGold resize-none"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-bronzeGold text-navyPrimary hover:bg-white font-bold py-4 rounded-xl transition text-xs uppercase tracking-widest shadow-md flex items-center justify-center gap-2 mt-2">
+                        <i class="fas fa-file-invoice-dollar text-base"></i> Minta Rincian RAB Pesanan
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- KALKULATOR ESTIMASI BIAYA REAL-TIME -->
+    <section id="kalkulator" class="py-20 bg-white border-t border-borderColor">
+        <div class="max-w-4xl mx-auto px-6 lg:px-12">
+            <div class="bg-lightBg p-8 md:p-12 rounded-2xl border border-borderColor card-shadow">
+                <div class="text-center mb-10">
+                    <span class="text-xs font-bold text-bronzeGold uppercase tracking-[0.2em] block mb-2">Kalkulator Real-Time</span>
+                    <h2 class="font-serif text-3xl font-bold text-navyPrimary">Simulasi Estimasi Biaya</h2>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-widest text-navyPrimary mb-2">Jenis Pekerjaan</label>
+                            <select id="calc-type" class="w-full bg-white border border-borderColor rounded-xl p-4 text-navyPrimary text-xs font-medium focus:outline-none focus:border-bronzeGold">
+                                <option value="bangun-standar">Bangun Rumah Dari Nol - Standar (Rp 3.500.000 / m²)</option>
+                                <option value="bangun-premium">Bangun Rumah Dari Nol - Premium (Rp 4.500.000 / m²)</option>
+                                <option value="renovasi-total">Renovasi Total & Atap (Rp 2.500.000 / m²)</option>
+                                <option value="interior-pvc">Desain Interior & Plafon PVC (Rp 1.800.000 / m²)</option>
+                                <option value="eksterior-kanopi">Desain Eksterior & Kanopi (Rp 450.000 / m²)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-widest text-navyPrimary mb-2">Luas Area (m²)</label>
+                            <input type="number" id="calc-area" value="50" min="1" class="w-full bg-white border border-borderColor rounded-xl p-4 text-navyPrimary text-xs font-medium focus:outline-none focus:border-bronzeGold">
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-6 text-center border border-borderColor shadow-sm">
+                        <div class="text-xs uppercase tracking-widest text-slateText mb-1">Perkiraan Total Biaya Borongan:</div>
+                        <div id="calc-total" class="font-serif text-4xl font-bold text-bronzeGold">Rp 175.000.000</div>
+                    </div>
+
+                    <button onclick="orderCalcWA()" class="w-full bg-bronzeGold text-navyPrimary font-bold py-4 rounded-xl text-xs uppercase tracking-widest hover:bg-navyPrimary hover:text-white transition shadow-md">
+                        Minta Penawaran Resmi via WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORM SURVEY LOKASI GRATIS -->
+    <section id="survey" class="py-20 bg-lightBg border-t border-borderColor">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div>
+                        <span class="text-xs font-bold text-bronzeGold uppercase tracking-[0.2em] block mb-2">Sistem Transparan</span>
+                        <h2 class="font-serif text-3xl md:text-4xl font-bold text-navyPrimary">Kerjasama Profesional</h2>
+                    </div>
+                    <div class="space-y-4 text-xs text-slateText leading-relaxed">
+                        <div class="bg-white p-6 rounded-xl border border-borderColor shadow-sm">
+                            <h4 class="font-bold text-navyPrimary text-sm mb-1"><i class="fas fa-file-invoice-dollar text-bronzeGold mr-2"></i> Sistem Cost + Fee (Transparan)</h4>
+                            <p>Pembelian material sesuai nota toko asli ditambah jasa pengelolaan 10-15%. Bebas dari biaya tersembunyi.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-borderColor shadow-sm">
+                            <h4 class="font-bold text-navyPrimary text-sm mb-1"><i class="fas fa-tasks text-bronzeGold mr-2"></i> Pembayaran Bertahap (Pay-as-You-Build)</h4>
+                            <p>Pembayaran 100% berdasarkan progres pengerjaan secara terukur tanpa risiko anggaran membengkak.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 border border-borderColor card-shadow">
+                    <h3 class="font-serif text-2xl font-bold text-navyPrimary mb-2">Jadwalkan Survey Lokasi</h3>
+                    <p class="text-xs text-slateText mb-6">Tim teknis kami siap melakukan pengukuran lokasi & menyusun penawaran anggaran secara teliti.</p>
+                    <form onsubmit="sendSurveyRequest(event)" class="space-y-4">
+                        <input type="text" id="survey-nama" required class="w-full bg-lightBg border border-borderColor rounded-xl p-3.5 text-xs text-navyPrimary focus:outline-none focus:border-bronzeGold" placeholder="Nama Lengkap Anda">
+                        <input type="tel" id="survey-hp" required class="w-full bg-lightBg border border-borderColor rounded-xl p-3.5 text-xs text-navyPrimary focus:outline-none focus:border-bronzeGold" placeholder="Nomor WhatsApp / HP">
+                        <input type="text" id="survey-alamat" required class="w-full bg-lightBg border border-borderColor rounded-xl p-3.5 text-xs text-navyPrimary focus:outline-none focus:border-bronzeGold" placeholder="Alamat / Lokasi Proyek">
+                        <select id="survey-layanan" class="w-full bg-lightBg border border-borderColor rounded-xl p-3.5 text-xs text-navyPrimary focus:outline-none focus:border-bronzeGold">
+                            <option value="Pembangunan Dari Nol">1. Pembangunan Dari Nol</option>
+                            <option value="Renovasi">2. Renovasi</option>
+                            <option value="Desain Interior">3. Desain Interior</option>
+                            <option value="Desain Eksterior">4. Desain Eksterior</option>
+                        </select>
+                        <input type="date" id="survey-tanggal" required class="w-full bg-lightBg border border-borderColor rounded-xl p-3.5 text-xs text-navyPrimary focus:outline-none focus:border-bronzeGold">
+                        <button type="submit" class="w-full bg-navyPrimary text-white font-bold py-4 rounded-xl text-xs uppercase tracking-widest hover:bg-bronzeGold hover:text-navyPrimary transition shadow-md">Jadwalkan Survey via WA</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POP-UP LIGHTBOX MODAL SLIDER FOTO PROYEK -->
+    <div id="project-lightbox-modal" class="fixed inset-0 bg-navyPrimary/95 z-50 hidden flex flex-col justify-between p-6 backdrop-blur-md">
+        <div class="flex justify-between items-center text-white border-b border-navySecondary pb-4">
+            <div>
+                <h3 id="modal-project-title" class="font-serif font-bold text-xl text-bronzeGold">Judul Proyek</h3>
+                <p id="modal-project-category" class="text-xs text-slateText">Kategori</p>
+            </div>
+            <button onclick="closeProjectModal()" class="text-white hover:text-bronzeGold text-3xl font-bold focus:outline-none">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="relative flex-1 flex items-center justify-center my-4">
+            <button onclick="prevProjectPhoto()" class="absolute left-4 bg-navySecondary/80 hover:bg-bronzeGold hover:text-navyPrimary text-white p-4 rounded-full border border-bronzeGold/30 transition z-10">
+                <i class="fas fa-chevron-left text-xl"></i>
+            </button>
+
+            <img id="modal-project-img" src="" class="max-h-[70vh] max-w-full rounded-2xl border border-bronzeGold/30 shadow-2xl object-contain">
+
+            <button onclick="nextProjectPhoto()" class="absolute right-4 bg-navySecondary/80 hover:bg-bronzeGold hover:text-navyPrimary text-white p-4 rounded-full border border-bronzeGold/30 transition z-10">
+                <i class="fas fa-chevron-right text-xl"></i>
+            </button>
+        </div>
+
+        <div class="text-center text-white border-t border-navySecondary pt-4 flex justify-between items-center">
+            <span id="modal-photo-counter" class="text-xs font-mono font-bold text-bronzeGold">Foto 1 dari 1</span>
+            <a href="#download-katalog" onclick="closeProjectModal()" class="bg-bronzeGold text-navyPrimary font-bold px-6 py-2.5 rounded-xl text-xs uppercase tracking-widest hover:bg-white transition">
+                Pesan Model Seperti Ini
+            </a>
+        </div>
+    </div>
+
+    <!-- POP-UP DETAIL PRODUK (MODAL BOX) DENGAN IKON VISUAL -->
+    <div id="product-detail-modal" class="fixed inset-0 bg-navyPrimary/90 z-50 hidden flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white rounded-2xl max-w-2xl w-full overflow-hidden border border-borderColor shadow-2xl relative">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-navyPrimary/80 text-white rounded-full flex items-center justify-center hover:bg-bronzeGold hover:text-navyPrimary transition">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+
+            <div class="max-h-[85vh] overflow-y-auto">
+                <img id="modal-prod-img" src="" alt="Detail Produk" class="w-full h-72 object-cover">
+                <div class="p-8 space-y-4">
+                    <span id="modal-prod-category" class="inline-block bg-navyPrimary text-bronzeGold text-[10px] font-bold px-3 py-1 rounded-md uppercase tracking-wider">Kategori</span>
+                    <h3 id="modal-prod-title" class="font-serif text-2xl md:text-3xl font-bold text-navyPrimary">Nama Produk</h3>
+                    <div id="modal-prod-price" class="text-2xl font-bold text-bronzeGold">Rp 0 <span class="text-xs font-sans text-slateText font-normal">/ m²</span></div>
+                    <hr class="border-borderColor">
+                    <div>
+                        <h4 class="font-bold text-xs uppercase text-navyPrimary mb-3"><i class="fas fa-list-check text-bronzeGold mr-2"></i> Rincian Spesifikasi Utama:</h4>
+                        <div id="modal-prod-desc" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slateText">
+                            <!-- Diisi dinamis via JS dengan ikon visual -->
+                        </div>
+                    </div>
+                    <div class="pt-4 flex gap-4">
+                        <button onclick="triggerPreRABModal()" class="flex-1 bg-bronzeGold text-navyPrimary font-bold py-3.5 rounded-xl text-xs uppercase tracking-widest hover:bg-navyPrimary hover:text-white transition shadow-md text-center">
+                            Pesan & Minta RAB Ini
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- POP-UP SEBELUM KE FORM RAB (PRE-RAB PROMOTION MODAL) -->
+    <div id="pre-rab-modal" class="fixed inset-0 bg-navyPrimary/90 z-50 hidden flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-8 border border-borderColor shadow-2xl relative text-center space-y-6">
+            <button onclick="closePreRABModal()" class="absolute top-4 right-4 text-slateText hover:text-navyPrimary text-xl">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="w-16 h-16 bg-amber-50 text-bronzeGold rounded-2xl mx-auto flex items-center justify-center text-3xl border border-amber-200">
+                <i class="fas fa-file-invoice-dollar"></i>
+            </div>
+
+            <div>
+                <span class="text-[10px] font-bold text-bronzeGold uppercase tracking-[0.2em] block mb-1">Penawaran Eksklusif</span>
+                <h3 class="font-serif text-2xl font-bold text-navyPrimary mb-2">Estimasi RAB & Konsultasi 100% Gratis!</h3>
+                <p class="text-slateText text-xs leading-relaxed">
+                    Dapatkan rincian anggaran biaya presisi, tanpa biaya tersembunyi, lengkap dengan garansi resmi pemeliharaan hingga 10 Tahun.
+                </p>
+            </div>
+
+            <div class="space-y-3 pt-2">
+                <button onclick="proceedToRABForm()" class="w-full bg-bronzeGold text-navyPrimary font-bold py-3.5 rounded-xl text-xs uppercase tracking-widest hover:bg-navyPrimary hover:text-white transition shadow-md">
+                    Lanjutkan ke Formulir RAB <i class="fas fa-arrow-right ml-1"></i>
+                </button>
+                <a id="modal-wa-consult" href="https://wa.me/6281234567890?text=Halo%20Berkah%20Jaya%20Property,%20saya%20ingin%20konsultasi%20cepat%20mengenai%20penawaran%20RAB" target="_blank" class="w-full bg-emerald-600 text-white font-bold py-3.5 rounded-xl text-xs uppercase tracking-widest hover:bg-emerald-700 transition shadow-md block">
+                    <i class="fab fa-whatsapp text-sm mr-1"></i> Konsultasi Cepat via WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- GLOBAL CROPPER MODAL (FITUR CROP OTOMATIS UNTUK SEMUA MENU UPLOAD FOTO) -->
+    <div id="global-cropper-modal" class="fixed inset-0 bg-navyPrimary/95 z-50 hidden flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white rounded-2xl max-w-xl w-full p-6 border border-borderColor shadow-2xl relative space-y-4">
+            <div class="flex justify-between items-center border-b border-borderColor pb-3">
+                <h3 class="font-serif font-bold text-lg text-navyPrimary"><i class="fas fa-crop text-bronzeGold mr-2"></i> Sesuaikan Ukuran Foto (Crop)</h3>
+                <button onclick="closeCropperModal()" class="text-slateText hover:text-navyPrimary text-xl"><i class="fas fa-times"></i></button>
+            </div>
+            <p class="text-xs text-slateText">Geser dan sesuaikan area foto agar proporsional dengan frame di web utama.</p>
+            <div class="max-h-[50vh] overflow-hidden bg-navyPrimary rounded-xl flex items-center justify-center">
+                <img id="cropper-target-img" src="" class="max-h-[50vh] block max-w-full">
+            </div>
+            <div class="flex gap-3 pt-2">
+                <button onclick="closeCropperModal()" class="flex-1 bg-lightBg border border-borderColor text-navyPrimary font-bold py-3 rounded-xl text-xs uppercase tracking-widest hover:bg-borderColor transition">Batal</button>
+                <button onclick="confirmCropImage()" class="flex-1 bg-bronzeGold text-navyPrimary font-bold py-3 rounded-xl text-xs uppercase tracking-widest hover:bg-navyHover transition shadow-md">Simpan & Terapkan Crop</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-navyPrimary text-white py-12 border-t border-navySecondary">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 text-center text-xs font-light">
+            <div id="footer-brand-name" class="font-serif text-2xl font-bold text-white mb-2 tracking-wider">BERKAH JAYA PROPERTY & CONTRACTOR</div>
+            <p class="max-w-md mx-auto text-slateText mb-6">Pembangunan Rumah Dari Nol, Renovasi Total, Desain Interior & Eksterior Profesional.</p>
+            <p id="footer-dynamic-address" class="text-slateText text-[11px] mb-4"><i class="fas fa-map-marker-alt text-bronzeGold mr-1"></i> Kantor Utama: Jl. Raya Properti No. 12, Jakarta Selatan</p>
+            <p class="text-slateText text-[10px] tracking-widest">&copy; 2026 BERKAH JAYA PROPERTY. HAK CIPTA DILINDUNGI.</p>
+        </div>
+    </footer>
+
+    <!-- Cropper.js Library CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
+    <!-- JavaScript Engine -->
+    <script>
+        const liveChannel = new BroadcastChannel('berkah_jaya_realtime');
+        let activeProjectPhotos = [];
+        let currentPhotoIndex = 0;
+        let selectedProductTitle = '';
+        let selectedProductCategory = '';
+        let activeWhatsAppNumber = '6281234567890';
+
+        // Variabel Global untuk Manajemen Cropper
+        let cropperInstance = null;
+        let activeCropCallback = null;
+        let activeCropAspectRatio = 16 / 9; // Default rasio proporsional web
+
+        // Fungsi Global Integrasi Crop pada File Input
+        function setupImageCropperInput(inputElementId, callback, aspectRatio = 16/9) {
+            const inputEl = document.getElementById(inputElementId);
+            if (!inputEl) return;
+            activeCropAspectRatio = aspectRatio;
+
+            inputEl.addEventListener('change', function(e) {
+                const files = e.target.files;
+                if (files && files.length > 0) {
+                    const reader = new FileReader();
+                    reader.onload = function(evt) {
+                        openCropperModal(evt.target.result, (croppedDataUrl) => {
+                            callback(croppedDataUrl);
+                        });
+                    };
+                    reader.readAsDataURL(files[0]);
+                }
+            });
+        }
+
+        function openCropperModal(imageSrc, onCropped) {
+            activeCropCallback = onCropped;
+            const modal = document.getElementById('global-cropper-modal');
+            const targetImg = document.getElementById('cropper-target-img');
+            targetImg.src = imageSrc;
+            modal.classList.remove('hidden');
+
+            if (cropperInstance) {
+                cropperInstance.destroy();
+            }
+
+            setTimeout(() => {
+                cropperInstance = new Cropper(targetImg, {
+                    aspectRatio: activeCropAspectRatio,
+                    viewMode: 1,
+                    autoCropArea: 1,
+                    responsive: true,
+                });
+            }, 150);
+        }
+
+        function closeCropperModal() {
+            document.getElementById('global-cropper-modal').classList.add('hidden');
+            if (cropperInstance) {
+                cropperInstance.destroy();
+                cropperInstance = null;
+            }
+        }
+
+        function confirmCropImage() {
+            if (cropperInstance) {
+                const canvas = cropperInstance.getCroppedCanvas({
+                    width: 1200,
+                    imageSmoothingEnabled: true,
+                    imageSmoothingQuality: 'high',
+                });
+                const croppedDataUrl = canvas.toDataURL('image/jpeg', 0.9);
+                if (activeCropCallback) {
+                    activeCropCallback(croppedDataUrl);
+                }
+                closeCropperModal();
+            }
+        }
+
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+
+        function closeFloatingPromo() {
+            const promoBox = document.getElementById('floating-promo-box');
+            if (promoBox) promoBox.style.display = 'none';
+        }
+
+        function openGalleryDB() {
+            return new Promise((resolve, reject) => {
+                const req = indexedDB.open('BerkahJayaGalleryDB', 2);
+                req.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains('projects')) {
+                        db.createObjectStore('projects', { keyPath: 'id' });
+                    }
+                };
+                req.onsuccess = (e) => resolve(e.target.result);
+                req.onerror = (e) => reject(e.target.error);
+            });
+        }
+
+        function openVideoDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open('BerkahJayaDB', 2);
+                request.onsuccess = (e) => resolve(e.target.result);
+                request.onerror = (e) => reject(e.target.error);
+            });
+        }
+
+        async function getAllProjectsFromDB() {
+            try {
+                const db = await openGalleryDB();
+                return new Promise((resolve, reject) => {
+                    const tx = db.transaction('projects', 'readonly');
+                    const store = tx.objectStore('projects');
+                    const req = store.getAll();
+                    req.onsuccess = () => resolve(req.result);
+                    req.onerror = (e) => reject(e.target.error);
+                });
+            } catch (e) {
+                return [];
+            }
+        }
+
+        async function applyUploadedHeroVideo() {
+            try {
+                const db = await openVideoDB();
+                const tx = db.transaction('videos', 'readonly');
+                const store = tx.objectStore('videos');
+                const request = store.get('hero_video');
+
+                request.onsuccess = () => {
+                    const videoBlob = request.result;
+                    if (videoBlob) {
+                        const heroVideo = document.getElementById('main-hero-video');
+                        const heroSource = document.getElementById('main-hero-source');
+                        if (heroVideo && heroSource) {
+                            const videoUrl = URL.createObjectURL(videoBlob);
+                            heroSource.src = videoUrl;
+                            heroVideo.load();
+                            heroVideo.play().catch(() => {});
+                        }
+                    }
+                };
+            } catch (e) {}
+        }
+
+        function applyHeroCardProfile() {
+            const data = JSON.parse(localStorage.getItem('admin_hero_card') || 'null');
+            if (data) {
+                if (data.title) document.getElementById('hero-card-title-el').textContent = data.title;
+                if (data.desc) document.getElementById('hero-card-desc-el').innerHTML = `<i class="fas fa-certificate text-bronzeGold mr-1"></i> ${data.desc}`;
+                if (data.price) document.getElementById('hero-card-price-el').textContent = data.price;
+                if (data.img) document.getElementById('hero-card-img-el').src = data.img;
+            }
+        }
+
+        function applyFloatingPromo() {
+            const promo = JSON.parse(localStorage.getItem('admin_floating_promo') || 'null');
+            if (promo) {
+                if (promo.title) document.getElementById('promo-badge-title').textContent = promo.title;
+                if (promo.desc) document.getElementById('promo-badge-desc').textContent = promo.desc;
+            }
+        }
+
+        function applyCompanyIdentity() {
+            const identity = JSON.parse(localStorage.getItem('admin_company_identity') || 'null');
+            if (identity) {
+                if (identity.name) {
+                    document.getElementById('brand-name-el').textContent = identity.name;
+                    document.getElementById('footer-brand-name').textContent = identity.name + ' & CONTRACTOR';
+                }
+                if (identity.tagline) {
+                    document.getElementById('brand-tagline-el').textContent = identity.tagline;
+                }
+                if (identity.logoImg) {
+                    const logoImg = document.getElementById('brand-logo-img');
+                    const logoText = document.getElementById('brand-logo-text');
+                    logoImg.src = identity.logoImg;
+                    logoImg.classList.remove('hidden');
+                    logoText.classList.add('hidden');
+                } else if (identity.logoText) {
+                    const logoImg = document.getElementById('brand-logo-img');
+                    const logoText = document.getElementById('brand-logo-text');
+                    logoText.textContent = identity.logoText;
+                    logoText.classList.remove('hidden');
+                    logoImg.classList.add('hidden');
+                }
+            }
+        }
+
+        function applyOfficeProfile() {
+            const profile = JSON.parse(localStorage.getItem('admin_office_profile') || 'null');
+            if (profile) {
+                if (profile.wa) activeWhatsAppNumber = profile.wa;
+                if (profile.alamat) {
+                    const addrEl = document.getElementById('footer-dynamic-address');
+                    if (addrEl) addrEl.innerHTML = `<i class="fas fa-map-marker-alt text-bronzeGold mr-1"></i> Kantor Utama: ${profile.alamat}`;
+
+                    const profileAddrEl = document.getElementById('profile-display-alamat');
+                    if (profileAddrEl) profileAddrEl.textContent = profile.alamat;
+                }
+                if (profile.wa) {
+                    const profileWaEl = document.getElementById('profile-display-wa');
+                    if (profileWaEl) profileWaEl.textContent = profile.wa;
+                }
+            }
+
+            const floatWA = document.getElementById('floating-wa-btn');
+            if (floatWA) floatWA.href = `https://wa.me/${activeWhatsAppNumber}?text=Halo%20Berkah%20Jaya%20Property,%20saya%20ingin%20konsultasi%20mengenai%20proyek%20konstruksi`;
+
+            const navWA = document.getElementById('nav-wa-btn');
+            if (navWA) navWA.href = `https://wa.me/${activeWhatsAppNumber}?text=Halo%20Berkah%20Jaya%20Property,%20saya%20ingin%20konsultasi`;
+
+            const modalWA = document.getElementById('modal-wa-consult');
+            if (modalWA) modalWA.href = `https://wa.me/${activeWhatsAppNumber}?text=Halo%20Berkah%20Jaya%20Property,%20saya%20ingin%20konsultasi%20cepat%20mengenai%20penawaran%20RAB`;
+
+            const profileBtnWA = document.getElementById('profile-btn-wa');
+            if (profileBtnWA) profileBtnWA.href = `https://wa.me/${activeWhatsAppNumber}?text=Halo%20Berkah%20Jaya%20Property,%20saya%20ingin%20menghubungi%20kantor`;
+        }
+
+        function formatSpecsWithIcons(descText) {
+            if (!descText) return '';
+            const items = descText.split(/[,.]+/).map(i => i.trim()).filter(i => i.length > 0);
+            
+            const iconsList = [
+                'fa-layer-group', 'fa-cubes', 'fa-th-large', 'fa-house-chimney', 
+                'fa-hammer', 'fa-paint-roller', 'fa-shield-halved', 'fa-bolt'
+            ];
+
+            return items.map((item, idx) => {
+                const iconClass = iconsList[idx % iconsList.length];
+                return `
+                    <div class="flex items-start gap-2.5 bg-lightBg p-3 rounded-xl border border-borderColor">
+                        <div class="w-7 h-7 bg-white text-bronzeGold rounded-lg flex items-center justify-center shrink-0 border border-borderColor shadow-sm">
+                            <i class="fas ${iconClass} text-xs"></i>
+                        </div>
+                        <span class="text-navyPrimary font-medium text-xs leading-snug">${item}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        const defaultProducts = [
+            { id: 'PRD-1', nama: 'Paket Bangun Rumah Minimalis', kategori: 'Pembangunan Dari Nol', harga: 3500000, gambar: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80', deskripsi: 'Pondasi Batu Kali & Cakar Ayam, Dinding Bata Merah/Hebel, Keramik 40x40, Rangka Atap Baja Ringan.' },
+            { id: 'PRD-2', nama: 'Renovasi Rumah Total & Atap', kategori: 'Renovasi', harga: 2500000, gambar: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80', deskripsi: 'Penggantian Atap Kayu ke Baja Ringan, Pengecatan Ulang Dinding, Perbaikan Keramik & Saniter.' },
+            { id: 'PRD-3', nama: 'Desain Interior Luxury & Kitchen Set', kategori: 'Desain Interior', harga: 1800000, gambar: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80', deskripsi: 'Plafon PVC Drop Light, Custom Kitchen Set HPL, Wallpanel Wood & Indirect Lighting.' },
+            { id: 'PRD-4', nama: 'Desain Eksterior Kanopi & Fasad', kategori: 'Desain Eksterior', harga: 450000, gambar: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80', deskripsi: 'Kanopi Alderon Twinwall Frame Hitam Doff, Pagar Aesthetic, & Ornamen Fasad Modern.' }
+        ];
+
+        function renderDynamicProducts(filterCategory = 'all') {
+            const container = document.getElementById('dynamic-products-grid');
+            if (!container) return;
+
+            let products = JSON.parse(localStorage.getItem('admin_products') || JSON.stringify(defaultProducts));
+            if (filterCategory !== 'all') {
+                products = products.filter(p => p.kategori === filterCategory);
+            }
+
+            if (products.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-12 text-slateText text-xs font-semibold">Belum ada produk yang ditambahkan.</div>`;
+                return;
+            }
+
+            container.innerHTML = products.map(p => `
+                <div class="bg-white rounded-2xl overflow-hidden border border-borderColor card-shadow card-shadow-hover transition duration-500 flex flex-col justify-between cursor-pointer" onclick="openProductModal('${p.nama}', '${p.kategori}', '${p.harga}', '${p.gambar}', '${p.deskripsi ? p.deskripsi.replace(/'/g, "\\'") : ''}')">
+                    <div>
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="${p.gambar}" alt="${p.nama}" class="w-full h-full object-cover">
+                            <span class="absolute top-4 left-4 bg-navyPrimary/90 backdrop-blur-md text-bronzeGold text-[10px] font-bold px-3 py-1 rounded-md border border-bronzeGold/30 uppercase tracking-wider">
+                                ${p.kategori}
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-serif text-xl font-bold text-navyPrimary mb-2">${p.nama}</h3>
+                            <div class="text-2xl font-bold text-bronzeGold mb-4">Rp ${parseInt(p.harga).toLocaleString('id-ID')} <span class="text-xs font-sans text-slateText font-normal">/ m²</span></div>
+                            
+                            <div class="grid grid-cols-1 gap-2 mb-4">
+                                ${formatSpecsWithIcons(p.deskripsi || (p.specs ? Object.values(p.specs).filter(Boolean).join(', ') : ''))}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="event.stopPropagation(); triggerPreRABModalFromCard('${p.nama}', '${p.kategori}')" class="w-full bg-navyPrimary text-white hover:bg-bronzeGold hover:text-navyPrimary font-bold py-3.5 rounded-xl transition text-xs uppercase tracking-widest shadow-sm">
+                            Minta Penawaran RAB
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterProductCategory(cat) {
+            renderDynamicProducts(cat);
+            const btns = document.querySelectorAll('.prod-filter-btn');
+            btns.forEach(btn => {
+                btn.classList.remove('bg-navyPrimary', 'text-white');
+                btn.classList.add('bg-lightBg', 'text-navyPrimary');
+            });
+            event.currentTarget.classList.add('bg-navyPrimary', 'text-white');
+            event.currentTarget.classList.remove('bg-lightBg', 'text-navyPrimary');
+        }
+
+        function openProductModal(nama, kategori, harga, gambar, deskripsi) {
+            selectedProductTitle = nama;
+            selectedProductCategory = kategori;
+
+            document.getElementById('modal-prod-title').textContent = nama;
+            document.getElementById('modal-prod-category').textContent = kategori;
+            document.getElementById('modal-prod-price').innerHTML = `Rp ${parseInt(harga).toLocaleString('id-ID')} <span class="text-xs font-sans text-slateText font-normal">/ m²</span>`;
+            document.getElementById('modal-prod-img').src = gambar;
+            
+            document.getElementById('modal-prod-desc').innerHTML = formatSpecsWithIcons(deskripsi);
+
+            document.getElementById('product-detail-modal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-detail-modal').classList.add('hidden');
+        }
+
+        function triggerPreRABModal() {
+            closeProductModal();
+            document.getElementById('pre-rab-modal').classList.remove('hidden');
+        }
+
+        function triggerPreRABModalFromCard(nama, kategori) {
+            selectedProductTitle = nama;
+            selectedProductCategory = kategori;
+            document.getElementById('pre-rab-modal').classList.remove('hidden');
+        }
+
+        function closePreRABModal() {
+            document.getElementById('pre-rab-modal').classList.add('hidden');
+        }
+
+        function proceedToRABForm() {
+            closePreRABModal();
+            if (selectedProductTitle) {
+                document.getElementById('lead-kategori').value = selectedProductCategory;
+                document.getElementById('lead-pesanan').value = `Izin memesan / meminta penawaran RAB untuk: ${selectedProductTitle}`;
+            }
+            document.getElementById('download-katalog').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        async function renderDynamicGallery() {
+            const container = document.getElementById('dynamic-gallery-grid');
+            if (!container) return;
+
+            const projects = await getAllProjectsFromDB();
+
+            if (projects.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-12 text-slateText text-xs font-semibold">Belum ada album proyek di galeri. Silakan tambahkan lewat Panel Admin.</div>`;
+                return;
+            }
+
+            container.innerHTML = projects.map(p => `
+                <div class="bg-white rounded-2xl overflow-hidden border border-borderColor card-shadow card-shadow-hover transition duration-500 flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="${p.photos[0]}" alt="${p.judul}" class="w-full h-full object-cover">
+                            <span class="absolute top-4 left-4 bg-navyPrimary/90 backdrop-blur-md text-bronzeGold text-[10px] font-bold px-3 py-1 rounded-md border border-bronzeGold/30 uppercase tracking-wider">
+                                ${p.kategori}
+                            </span>
+                            <span class="absolute bottom-4 right-4 bg-navyPrimary/90 text-white text-[10px] font-bold px-3 py-1 rounded-md border border-navySecondary">
+                                <i class="fas fa-images text-bronzeGold mr-1"></i> ${p.photos.length} Foto
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-serif text-xl font-bold text-navyPrimary mb-2">${p.judul}</h3>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="openProjectModal('${p.id}')" class="w-full bg-navyPrimary text-white hover:bg-bronzeGold hover:text-navyPrimary font-bold py-3.5 rounded-xl transition text-xs uppercase tracking-widest shadow-sm flex items-center justify-center gap-2">
+                            <i class="fas fa-eye"></i> Lihat Proyek (${p.photos.length} Foto)
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            const baProject = projects.find(p => p.isBeforeAfter && p.beforeImg && p.afterImg);
+            if (baProject) {
+                document.getElementById('ba-img-before').src = baProject.beforeImg;
+                document.getElementById('ba-img-after').src = baProject.afterImg;
+            }
+        }
+
+        async function openProjectModal(projectId) {
+            const projects = await getAllProjectsFromDB();
+            const project = projects.find(p => p.id === projectId);
+            if (!project || project.photos.length === 0) return;
+
+            activeProjectPhotos = project.photos;
+            currentPhotoIndex = 0;
+
+            document.getElementById('modal-project-title').textContent = project.judul;
+            document.getElementById('modal-project-category').textContent = project.kategori;
+            
+            updateModalPhoto();
+            document.getElementById('project-lightbox-modal').classList.remove('hidden');
+        }
+
+        function closeProjectModal() {
+            document.getElementById('project-lightbox-modal').classList.add('hidden');
+        }
+
+        function updateModalPhoto() {
+            document.getElementById('modal-project-img').src = activeProjectPhotos[currentPhotoIndex];
+            document.getElementById('modal-photo-counter').textContent = `Foto ${currentPhotoIndex + 1} dari ${activeProjectPhotos.length}`;
+        }
+
+        function nextProjectPhoto() {
+            currentPhotoIndex = (currentPhotoIndex + 1) % activeProjectPhotos.length;
+            updateModalPhoto();
+        }
+
+        function prevProjectPhoto() {
+            currentPhotoIndex = (currentPhotoIndex - 1 + activeProjectPhotos.length) % activeProjectPhotos.length;
+            updateModalPhoto();
+        }
+
+        function handleDownloadCatalog(e) {
+            e.preventDefault();
+            const nama = document.getElementById('lead-nama').value;
+            const wa = document.getElementById('lead-wa').value;
+            const kategori = document.getElementById('lead-kategori').value;
+            const pesanan = document.getElementById('lead-pesanan').value;
+
+            const newLead = {
+                id: 'RAB-' + Date.now().toString().slice(-4),
+                nama, wa, kategori, pesanan,
+                status: 'Belum Ditindaklanjuti',
+                tanggal: new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }),
+                timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+            };
+
+            let leads = JSON.parse(localStorage.getItem('admin_leads') || '[]');
+            leads.unshift(newLead);
+            localStorage.setItem('admin_leads', JSON.stringify(leads));
+            liveChannel.postMessage({ type: 'NEW_LEAD', data: newLead });
+
+            const message = `Halo Admin Berkah Jaya Property, nama saya *${nama}* (${wa}).%0A%0AMeminta penawaran RAB:%0A- *Kategori*: ${kategori}%0A- *Pesanan*: ${pesanan}`;
+            window.open(`https://wa.me/${activeWhatsAppNumber}?text=${message}`, '_blank');
+        }
+
+        function sendSurveyRequest(e) {
+            e.preventDefault();
+            const nama = document.getElementById('survey-nama').value;
+            const hp = document.getElementById('survey-hp').value;
+            const alamat = document.getElementById('survey-alamat').value;
+            const layanan = document.getElementById('survey-layanan').value;
+            const tanggal = document.getElementById('survey-tanggal').value;
+
+            const newSurvey = {
+                id: 'SRV-' + Date.now().toString().slice(-4),
+                nama, hp, alamat, layanan, tanggal,
+                status: 'Belum Ditindaklanjuti',
+                timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+            };
+
+            let surveys = JSON.parse(localStorage.getItem('admin_surveys') || '[]');
+            surveys.unshift(newSurvey);
+            localStorage.setItem('admin_surveys', JSON.stringify(surveys));
+            liveChannel.postMessage({ type: 'NEW_SURVEY', data: newSurvey });
+
+            const message = `Halo Berkah Jaya Property, saya *Request Survey Lokasi Gratis*:%0A- *Nama*: ${nama}%0A- *HP*: ${hp}%0A- *Alamat*: ${alamat}%0A- *Layanan*: ${layanan}%0A- *Tanggal*: ${tanggal}`;
+            window.open(`https://wa.me/${activeWhatsAppNumber}?text=${message}`, '_blank');
+        }
+
+        const calcType = document.getElementById('calc-type');
+        const calcArea = document.getElementById('calc-area');
+        const calcTotal = document.getElementById('calc-total');
+        const prices = { 'bangun-standar': 3500000, 'bangun-premium': 4500000, 'renovasi-total': 2500000, 'interior-pvc': 1800000, 'eksterior-kanopi': 450000 };
+
+        function calculateBiaya() {
+            const area = parseFloat(calcArea.value) || 0;
+            const price = prices[calcType.value] || 0;
+            calcTotal.textContent = 'Rp ' + (area * price).toLocaleString('id-ID');
+        }
+        if (calcType && calcArea) {
+            calcType.addEventListener('change', calculateBiaya);
+            calcArea.addEventListener('input', calculateBiaya);
+        }
+
+        function orderCalcWA() {
+            const selectedText = calcType.options[calcType.selectedIndex].text;
+            const message = `Halo Berkah Jaya Property, saya ingin konsultasi penawaran harga:%0A- *Layanan*: ${selectedText}%0A- *Luas*: ${calcArea.value} m²%0A- *Estimasi*: ${calcTotal.textContent}`;
+            window.open(`https://wa.me/${activeWhatsAppNumber}?text=${message}`, '_blank');
+        }
+
+        const sliderInput = document.getElementById('before-after-slider');
+        const beforeImageWrapper = document.getElementById('before-image-wrapper');
+        const sliderHandle = document.getElementById('slider-handle');
+
+        if (sliderInput) {
+            sliderInput.addEventListener('input', () => {
+                const val = sliderInput.value;
+                beforeImageWrapper.style.width = `${val}%`;
+                sliderHandle.style.left = `${val}%`;
+            });
+        }
+
+        liveChannel.onmessage = (event) => {
+            if (event.data.type === 'PRODUCTS_UPDATED') renderDynamicProducts();
+            if (event.data.type === 'PROJECTS_UPDATED') renderDynamicGallery();
+            if (event.data.type === 'PROFILE_UPDATED') applyOfficeProfile();
+            if (event.data.type === 'HERO_CARD_UPDATED') applyHeroCardProfile();
+            if (event.data.type === 'PROMO_UPDATED') applyFloatingPromo();
+            if (event.data.type === 'IDENTITY_UPDATED') applyCompanyIdentity();
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderDynamicProducts();
+            renderDynamicGallery();
+            applyUploadedHeroVideo();
+            applyHeroCardProfile();
+            applyOfficeProfile();
+            applyFloatingPromo();
+            applyCompanyIdentity();
+            calculateBiaya();
+        });
+    </script>
+</body>
+</html>

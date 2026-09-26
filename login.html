@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin - Berkah Jaya Property & Contractor</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navyPrimary: '#0A192F',
+                        navySecondary: '#112240',
+                        bronzeGold: '#C5A059',
+                        bronzeHover: '#B08C45',
+                        slateText: '#8892B0',
+                        lightBg: '#F8FAFC',
+                        cardWhite: '#FFFFFF',
+                        borderColor: '#E2E8F0',
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .card-shadow { box-shadow: 0 10px 30px -5px rgba(10, 25, 47, 0.05); }
+    </style>
+</head>
+<body class="bg-navyPrimary text-white font-sans antialiased min-h-screen flex items-center justify-center p-6">
+
+    <!-- Container Login Terpisah -->
+    <div class="bg-navySecondary rounded-2xl max-w-md w-full p-8 border border-bronzeGold/30 card-shadow space-y-6">
+        <div class="text-center space-y-2">
+            <div class="w-14 h-14 bg-bronzeGold text-navyPrimary rounded-2xl mx-auto flex items-center justify-center text-2xl font-serif font-bold shadow-md">
+                B
+            </div>
+            <h2 id="auth-title" class="font-serif text-2xl font-bold tracking-wider text-bronzeGold">LOGIN ADMIN</h2>
+            <p class="text-xs text-slateText">Berkah Jaya Property & Contractor</p>
+        </div>
+
+        <!-- Form Login -->
+        <form id="form-login" onsubmit="handleAdminLogin(event)" class="space-y-4">
+            <div>
+                <label class="block text-[11px] font-bold text-slateText uppercase tracking-wider mb-1.5">Username (Default: admin)</label>
+                <input type="text" id="login-user" required placeholder="Masukkan username..." class="w-full bg-navyPrimary border border-navySecondary rounded-xl p-3.5 text-xs text-white focus:outline-none focus:border-bronzeGold">
+            </div>
+            <div>
+                <label class="block text-[11px] font-bold text-slateText uppercase tracking-wider mb-1.5">Password (Default: berkahjaya2026)</label>
+                <input type="password" id="login-pass" required placeholder="Masukkan password..." class="w-full bg-navyPrimary border border-navySecondary rounded-xl p-3.5 text-xs text-white focus:outline-none focus:border-bronzeGold">
+            </div>
+            <div id="login-error" class="text-rose-500 text-xs hidden font-medium">Username atau password salah!</div>
+            <button type="submit" class="w-full bg-bronzeGold text-navyPrimary hover:bg-white font-bold py-4 rounded-xl transition text-xs uppercase tracking-widest shadow-md">
+                Masuk Panel Admin
+            </button>
+            <div class="text-center pt-2">
+                <button type="button" onclick="toggleAuthMode('register')" class="text-xs text-bronzeGold hover:underline">Belum punya akun? Buat Akun Admin</button>
+            </div>
+        </form>
+
+        <!-- Form Register Akun Baru -->
+        <form id="form-register" onsubmit="handleAdminRegister(event)" class="space-y-4 hidden">
+            <div>
+                <label class="block text-[11px] font-bold text-slateText uppercase tracking-wider mb-1.5">Buat Username</label>
+                <input type="text" id="reg-user" required placeholder="Username baru..." class="w-full bg-navyPrimary border border-navySecondary rounded-xl p-3.5 text-xs text-white focus:outline-none focus:border-bronzeGold">
+            </div>
+            <div>
+                <label class="block text-[11px] font-bold text-slateText uppercase tracking-wider mb-1.5">Buat Password</label>
+                <input type="password" id="reg-pass" required placeholder="Password baru..." class="w-full bg-navyPrimary border border-navySecondary rounded-xl p-3.5 text-xs text-white focus:outline-none focus:border-bronzeGold">
+            </div>
+            <div id="reg-success" class="text-emerald-400 text-xs hidden font-medium">Akun berhasil dibuat! Silakan login.</div>
+            <button type="submit" class="w-full bg-bronzeGold text-navyPrimary hover:bg-white font-bold py-4 rounded-xl transition text-xs uppercase tracking-widest shadow-md">
+                Daftar Akun Baru
+            </button>
+            <div class="text-center pt-2">
+                <button type="button" onclick="toggleAuthMode('login')" class="text-xs text-bronzeGold hover:underline">Sudah punya akun? Masuk di sini</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- JavaScript Autentikasi -->
+    <script>
+        function toggleAuthMode(mode) {
+            const formLogin = document.getElementById('form-login');
+            const formRegister = document.getElementById('form-register');
+            const authTitle = document.getElementById('auth-title');
+
+            if (mode === 'register') {
+                formLogin.classList.add('hidden');
+                formRegister.classList.remove('hidden');
+                authTitle.textContent = 'REGISTRASI ADMIN';
+            } else {
+                formRegister.classList.add('hidden');
+                formLogin.classList.remove('hidden');
+                authTitle.textContent = 'LOGIN ADMIN';
+            }
+        }
+
+        function handleAdminRegister(e) {
+            e.preventDefault();
+            const u = document.getElementById('reg-user').value;
+            const p = document.getElementById('reg-pass').value;
+
+            let accounts = JSON.parse(localStorage.getItem('admin_accounts') || '[]');
+            if (accounts.some(acc => acc.username === u)) {
+                alert('Username sudah terdaftar! Gunakan username lain.');
+                return;
+            }
+
+            accounts.push({ username: u, password: p });
+            localStorage.setItem('admin_accounts', JSON.stringify(accounts));
+
+            document.getElementById('reg-success').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('reg-success').classList.add('hidden');
+                toggleAuthMode('login');
+            }, 1500);
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('login-user').value;
+            const p = document.getElementById('login-pass').value;
+
+            let accounts = JSON.parse(localStorage.getItem('admin_accounts') || '[]');
+            if (accounts.length === 0) {
+                accounts.push({ username: 'admin', password: 'berkahjaya2026' });
+            }
+
+            const validAccount = accounts.find(acc => acc.username === u && acc.password === p);
+
+            if (validAccount) {
+                localStorage.setItem('admin_logged_in', 'true');
+                window.location.href = 'admin.html'; // Mengarahkan ke file dashboard admin utama
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>

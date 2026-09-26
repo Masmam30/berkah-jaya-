@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin Real-Time | Berkah Jaya Property</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navyPrimary: '#0A192F',
+                        navySecondary: '#112240',
+                        bronzeGold: '#C5A059',
+                        bronzeHover: '#B08C45',
+                        slateText: '#8892B0',
+                        lightBg: '#F8FAFC',
+                        borderColor: '#E2E8F0',
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .card-shadow { box-shadow: 0 10px 30px -5px rgba(10, 25, 47, 0.05); }
+    </style>
+</head>
+<body class="bg-lightBg text-navyPrimary font-sans antialiased flex min-h-screen">
+
+    <!-- Sidebar Navigation -->
+    <aside class="w-64 bg-navyPrimary text-white hidden lg:flex flex-col justify-between p-6 fixed h-full z-30 border-r border-navySecondary">
+        <div>
+            <div class="flex items-center space-x-3 mb-8 pb-6 border-b border-navySecondary">
+                <div class="w-10 h-10 bg-bronzeGold text-navyPrimary font-serif font-bold text-xl rounded-lg flex items-center justify-center shadow-md">B</div>
+                <div>
+                    <span class="font-serif font-bold text-lg tracking-wider block text-white leading-none">BERKAH JAYA</span>
+                    <span class="text-[9px] tracking-[0.2em] uppercase font-semibold text-bronzeGold">Panel Admin Live</span>
+                </div>
+            </div>
+
+            <nav class="space-y-2 text-xs font-semibold uppercase tracking-wider">
+                <button onclick="switchTab('overview')" id="nav-overview" class="nav-btn w-full flex items-center justify-between p-3 rounded-lg bg-bronzeGold text-navyPrimary font-bold transition">
+                    <span class="flex items-center gap-3"><i class="fas fa-chart-pie text-base w-5"></i> Ringkasan Utama</span>
+                    <span id="badge-overview" class="bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
+                </button>
+                <button onclick="switchTab('products')" id="nav-products" class="nav-btn w-full flex items-center justify-between p-3 rounded-lg text-slateText hover:bg-navySecondary hover:text-white transition">
+                    <span class="flex items-center gap-3"><i class="fas fa-boxes text-base w-5"></i> Kelola Produk</span>
+                </button>
+                <button onclick="switchTab('gallery')" id="nav-gallery" class="nav-btn w-full flex items-center justify-between p-3 rounded-lg text-slateText hover:bg-navySecondary hover:text-white transition">
+                    <span class="flex items-center gap-3"><i class="fas fa-images text-base w-5"></i> Galeri & Transformasi</span>
+                </button>
+                <button onclick="switchTab('surveys')" id="nav-surveys" class="nav-btn w-full flex items-center justify-between p-3 rounded-lg text-slateText hover:bg-navySecondary hover:text-white transition">
+                    <span class="flex items-center gap-3"><i class="fas fa-calendar-check text-base w-5"></i> Jadwal Survey</span>
+                    <span id="badge-surveys" class="bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
+                </button>
+                <button onclick="switchTab('leads')" id="nav-leads" class="nav-btn w-full flex items-center justify-between p-3 rounded-lg text-slateText hover:bg-navySecondary hover:text-white transition">
+                    <span class="flex items-center gap-3"><i class="fas fa-file-invoice-dollar text-base w-5"></i> Permintaan RAB</span>
+                    <span id="badge-leads" class="bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
+                </button>
+                <button onclick="switchTab('identity')" id="nav-identity" class="nav-btn w-full flex items-center gap-3 p-3 rounded-lg text-slateText hover:bg-navySecondary hover:text-white transition">
+                    <i class="fas fa-signature text-base w-5"></i> Ganti Logo & Nama
+                </button>
+                <button onclick="switchTab('hero')" id="nav-hero" class="nav-btn w-full flex items-center gap-3 p-3 rounded-lg text-slateText hover:bg-navySecondary hover:text-white transition">
+                    <i class="fas fa-image text-base w-5"></i> Kelola Banner Hero
+                </button>
+                <button onclick="switchTab('promo')" id="nav-promo" class="nav-btn w-full flex items-center gap-3 p-3 rounded-lg text-slateText hover:bg-navySecondary hover:text-white transition">
+                    <i class="fas fa-percent text-base w-5"></i> Floating Promo
+                </button>
+                <button onclick="switchTab('video')" id="nav-video" class="nav-btn w-full flex items-center gap-3 p-3 rounded-lg text-slateText hover:bg-navySecondary hover:text-white transition">
+                    <i class="fas fa-file-video text-base w-5"></i> Upload Video Hero
+                </button>
+                <button onclick="switchTab('profile')" id="nav-profile" class="nav-btn w-full flex items-center gap-3 p-3 rounded-lg text-slateText hover:bg-navySecondary hover:text-white transition">
+                    <i class="fas fa-building text-base w-5"></i> Info Kontak Kantor
+                </button>
+            </nav>
+        </div>
+
+        <div class="pt-6 border-t border-navySecondary text-[10px] text-slateText">
+            <a href="index_8.html" target="_blank" class="flex items-center gap-2 text-white hover:text-bronzeGold transition font-semibold mb-3">
+                <i class="fas fa-external-link-alt"></i> Buka Website Utama
+            </a>
+            <p>&copy; 2026 Berkah Jaya Property</p>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 lg:ml-64 p-6 md:p-10">
+        <header class="flex justify-between items-center mb-10 pb-6 border-b border-borderColor">
+            <div>
+                <h1 id="page-title" class="font-serif text-2xl md:text-3xl font-bold text-navyPrimary">Dashboard Ringkasan Utama</h1>
+                <p class="text-xs text-slateText">Pusat Kendali Orderan, Jadwal Survey, Katalog & Pembukuan Transaksi Real-Time.</p>
+            </div>
+            <div class="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-full border border-emerald-200 text-xs font-bold">
+                <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping"></span>
+                <span>Koneksi Real-Time Aktif</span>
+            </div>
+        </header>
+
+        <!-- Toast Pop-Up Notification -->
+        <div id="live-toast" class="fixed top-6 right-6 z-50 transform translate-x-full transition-transform duration-500 bg-navyPrimary text-white border border-bronzeGold/50 p-5 rounded-2xl shadow-2xl flex items-start gap-4 max-w-sm">
+            <div class="w-10 h-10 bg-bronzeGold text-navyPrimary rounded-xl flex items-center justify-center text-xl font-bold shrink-0 mt-0.5">
+                <i class="fas fa-bell"></i>
+            </div>
+            <div class="space-y-1 flex-1">
+                <h4 id="toast-title" class="font-serif font-bold text-sm text-bronzeGold">Pesan Baru Masuk!</h4>
+                <p id="toast-message" class="text-xs text-slateText leading-relaxed">Ada permohonan baru dari pengunjung.</p>
+            </div>
+        </div>
+
+        <!-- TAB 1: OVERVIEW -->
+        <div id="tab-overview" class="tab-content space-y-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-rose-50 border border-rose-200 p-6 rounded-xl card-shadow flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] font-bold uppercase text-rose-700 block mb-1">Survey Belum Diproses</span>
+                        <span id="stat-pending-surveys" class="font-serif text-3xl font-bold text-rose-800">0</span>
+                    </div>
+                    <div class="w-12 h-12 bg-white text-rose-600 rounded-lg border border-rose-200 flex items-center justify-center text-xl shadow-sm"><i class="fas fa-clock"></i></div>
+                </div>
+
+                <div class="bg-amber-50 border border-amber-200 p-6 rounded-xl card-shadow flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] font-bold uppercase text-amber-700 block mb-1">Order RAB Belum Diproses</span>
+                        <span id="stat-pending-leads" class="font-serif text-3xl font-bold text-amber-800">0</span>
+                    </div>
+                    <div class="w-12 h-12 bg-white text-amber-600 rounded-lg border border-amber-200 flex items-center justify-center text-xl shadow-sm"><i class="fas fa-exclamation-triangle"></i></div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-borderColor card-shadow flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] font-bold uppercase text-slateText block mb-1">Total Permintaan Survey</span>
+                        <span id="stat-total-surveys" class="font-serif text-3xl font-bold text-navyPrimary">0</span>
+                    </div>
+                    <div class="w-12 h-12 bg-lightBg text-bronzeGold rounded-lg border border-borderColor flex items-center justify-center text-xl"><i class="fas fa-calendar-alt"></i></div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-borderColor card-shadow flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] font-bold uppercase text-slateText block mb-1">Total Permintaan RAB</span>
+                        <span id="stat-total-leads" class="font-serif text-3xl font-bold text-navyPrimary">0</span>
+                    </div>
+                    <div class="w-12 h-12 bg-lightBg text-bronzeGold rounded-lg border border-borderColor flex items-center justify-center text-xl"><i class="fas fa-file-invoice-dollar"></i></div>
+                </div>
+            </div>
+
+            <!-- Tabel Prioritas Penanganan -->
+            <div class="bg-white rounded-2xl border-2 border-rose-200 card-shadow overflow-hidden">
+                <div class="p-6 bg-rose-50/50 border-b border-rose-200 flex justify-between items-center">
+                    <h3 class="font-serif font-bold text-navyPrimary text-lg flex items-center gap-2"><i class="fas fa-bell text-rose-500 animate-bounce"></i> Prioritas Penanganan (Belum Ditindaklanjuti)</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-lightBg text-navyPrimary font-bold uppercase text-[10px] tracking-wider">
+                            <tr><th class="p-4">Tipe Data</th><th class="p-4">Waktu</th><th class="p-4">Nama Pelanggan</th><th class="p-4">Kontak</th><th class="p-4">Detail</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi Cepat</th></tr>
+                        </thead>
+                        <tbody id="priority-pending-tbody" class="divide-y divide-borderColor text-slateText font-medium"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tabel Pembukuan Orderan -->
+            <div class="bg-white rounded-2xl border border-borderColor card-shadow overflow-hidden">
+                <div class="p-6 border-b border-borderColor flex justify-between items-center">
+                    <h3 class="font-serif font-bold text-navyPrimary text-lg"><i class="fas fa-book text-bronzeGold mr-2"></i> Pembukuan Rekapitulasi Orderan & RAB</h3>
+                    <button onclick="exportLeadsToExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition shadow-sm flex items-center gap-2">
+                        <i class="fas fa-file-excel"></i> Export ke Excel (CSV)
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-lightBg text-navyPrimary font-bold uppercase text-[10px] tracking-wider">
+                            <tr><th class="p-4">ID Order</th><th class="p-4">Tanggal Masuk</th><th class="p-4">Nama Pelanggan</th><th class="p-4">Kontak WA</th><th class="p-4">Kategori Pekerjaan</th><th class="p-4">Status</th><th class="p-4 text-right">Tindak Lanjut</th></tr>
+                        </thead>
+                        <tbody id="bookkeeping-tbody" class="divide-y divide-borderColor text-slateText font-medium"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: KELOLA PRODUK -->
+        <div id="tab-products" class="tab-content hidden space-y-8">
+            <div class="bg-white p-6 rounded-2xl border border-borderColor card-shadow max-w-3xl">
+                <h3 class="font-serif font-bold text-navyPrimary text-lg mb-4"><i class="fas fa-plus-circle text-bronzeGold mr-2"></i> Tambah Produk / Layanan Baru</h3>
+                <form onsubmit="handleAddProduct(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Nama Produk / Paket</label>
+                            <input type="text" id="prod-nama" required placeholder="Contoh: Paket Minimalis Modern" class="w-full bg-lightBg border border-borderColor rounded-lg p-3 text-xs focus:outline-none focus:border-bronzeGold">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Kategori Utama</label>
+                            <select id="prod-kategori" required class="w-full bg-lightBg border border-borderColor rounded-lg p-3 text-xs focus:outline-none focus:border-bronzeGold">
+                                <option value="Pembangunan Dari Nol">1. Pembangunan Dari Nol</option>
+                                <option value="Renovasi">2. Renovasi</option>
+                                <option value="Desain Interior">3. Desain Interior</option>
+                                <option value="Desain Eksterior">4. Desain Eksterior</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Estimasi Harga (Rp / m²)</label>
+                            <input type="number" id="prod-harga" required placeholder="Contoh: 3500000" class="w-full bg-lightBg border border-borderColor rounded-lg p-3 text-xs focus:outline-none focus:border-bronzeGold">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Upload Foto Produk</label>
+                            <input type="file" id="prod-gambar-file" accept="image/*" class="w-full p-2 bg-lightBg border border-borderColor rounded-lg text-xs cursor-pointer">
+                            <input type="hidden" id="prod-gambar-base64">
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-lightBg border border-borderColor rounded-xl space-y-3">
+                        <label class="block text-xs font-bold text-navyPrimary uppercase mb-1"><i class="fas fa-icons text-bronzeGold mr-1"></i> Spesifikasi Material Berikon</label>
+                        <div class="space-y-2.5">
+                            <input type="text" id="spec-pondasi" placeholder="Pondasi (Cth: Batu Kali & Cakar Ayam)" class="w-full bg-white border border-borderColor rounded-lg p-2.5 text-xs">
+                            <input type="text" id="spec-dinding" placeholder="Dinding (Cth: Bata Merah / Hebel)" class="w-full bg-white border border-borderColor rounded-lg p-2.5 text-xs">
+                            <input type="text" id="spec-lantai" placeholder="Lantai (Cth: Keramik 40x40 / Granit)" class="w-full bg-white border border-borderColor rounded-lg p-2.5 text-xs">
+                            <input type="text" id="spec-atap" placeholder="Atap (Cth: Rangka Atap Baja Ringan SNI)" class="w-full bg-white border border-borderColor rounded-lg p-2.5 text-xs">
+                            <input type="text" id="spec-tambahan" placeholder="Tambahan Lain (Cth: Plafon Gypsum)" class="w-full bg-white border border-borderColor rounded-lg p-2.5 text-xs">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="bg-bronzeGold text-navyPrimary font-bold px-6 py-3 rounded-lg text-xs uppercase tracking-widest hover:bg-navyPrimary hover:text-white transition shadow-md"><i class="fas fa-save mr-1"></i> Simpan Produk</button>
+                </form>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-borderColor card-shadow">
+                <h3 class="font-serif font-bold text-navyPrimary text-lg mb-4">Daftar Produk Terpasang</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-lightBg text-navyPrimary font-bold uppercase text-[10px] tracking-wider">
+                            <tr><th class="p-4">Foto</th><th class="p-4">Nama Produk</th><th class="p-4">Kategori</th><th class="p-4">Harga</th><th class="p-4">Spesifikasi Berikon</th><th class="p-4">Status Web</th><th class="p-4 text-right">Aksi</th></tr>
+                        </thead>
+                        <tbody id="products-tbody" class="divide-y divide-borderColor text-slateText font-medium"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: GALERI & TRANSFORMASI -->
+        <div id="tab-gallery" class="tab-content hidden space-y-8">
+            <div class="bg-white p-6 rounded-2xl border border-borderColor card-shadow max-w-3xl">
+                <h3 class="font-serif font-bold text-navyPrimary text-lg mb-4"><i class="fas fa-folder-plus text-bronzeGold mr-2"></i> Tambah Album Proyek Baru</h3>
+                <form onsubmit="handleAddProjectAlbum(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Judul / Nama Proyek</label>
+                            <input type="text" id="proj-judul" required placeholder="Contoh: Modern Residence BSD" class="w-full bg-lightBg border border-borderColor rounded-lg p-3 text-xs focus:outline-none focus:border-bronzeGold">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Kategori Proyek</label>
+                            <select id="proj-kategori" required class="w-full bg-lightBg border border-borderColor rounded-lg p-3 text-xs focus:outline-none focus:border-bronzeGold">
+                                <option value="Pembangunan Dari Nol">Pembangunan Dari Nol</option>
+                                <option value="Renovasi">Renovasi</option>
+                                <option value="Desain Interior">Desain Interior</option>
+                                <option value="Desain Eksterior">Desain Eksterior</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Upload Foto Proyek (Pilih Banyak File Foto)</label>
+                        <input type="file" id="proj-photos-file" multiple accept="image/*" required class="w-full p-2 bg-lightBg border border-borderColor rounded-lg text-xs cursor-pointer">
+                    </div>
+
+                    <div class="p-4 bg-lightBg border border-borderColor rounded-xl space-y-3">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="chk-before-after" onchange="toggleBeforeAfterInputs(this.checked)" class="rounded text-bronzeGold">
+                            <span class="text-xs font-bold text-navyPrimary">Aktifkan Tampilan Sebelum & Sesudah (Before & After)</span>
+                        </label>
+                        <div id="ba-inputs-wrapper" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-borderColor">
+                            <div>
+                                <label class="block text-[10px] font-bold text-navyPrimary uppercase mb-1">Foto Sebelum (Before)</label>
+                                <input type="file" id="proj-before-file" accept="image/*" class="w-full p-2 bg-white border border-borderColor rounded-lg text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-navyPrimary uppercase mb-1">Foto Sesudah (After)</label>
+                                <input type="file" id="proj-after-file" accept="image/*" class="w-full p-2 bg-white border border-borderColor rounded-lg text-xs">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="btn-submit-gallery" class="bg-bronzeGold text-navyPrimary font-bold px-6 py-3 rounded-lg text-xs uppercase tracking-widest hover:bg-navyPrimary hover:text-white transition shadow-md">
+                        <i class="fas fa-cloud-upload-alt mr-1"></i> Simpan Album Proyek
+                    </button>
+                </form>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-borderColor card-shadow">
+                <h3 class="font-serif font-bold text-navyPrimary text-lg mb-4">Daftar Proyek di Galeri</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-lightBg text-navyPrimary font-bold uppercase text-[10px]">
+                            <tr><th class="p-4">Sampul</th><th class="p-4">Nama Proyek</th><th class="p-4">Kategori</th><th class="p-4">Jumlah Foto</th><th class="p-4">Before-After</th><th class="p-4">Status Web</th><th class="p-4 text-right">Aksi</th></tr>
+                        </thead>
+                        <tbody id="projects-tbody" class="divide-y divide-borderColor text-slateText font-medium"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: JADWAL SURVEY -->
+        <div id="tab-surveys" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-borderColor card-shadow">
+                <h3 class="font-serif font-bold text-navyPrimary text-lg mb-4">Kelola Seluruh Permintaan Survey</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-lightBg text-navyPrimary font-bold uppercase text-[10px]">
+                            <tr><th class="p-4">ID</th><th class="p-4">Nama</th><th class="p-4">No. HP / WA</th><th class="p-4">Lokasi Proyek</th><th class="p-4">Layanan</th><th class="p-4">Tgl Survey</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr>
+                        </thead>
+                        <tbody id="full-survey-tbody" class="divide-y divide-borderColor text-slateText font-medium"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: PERMINTAAN RAB -->
+        <div id="tab-leads" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-borderColor card-shadow">
+                <h3 class="font-serif font-bold text-navyPrimary text-lg mb-4">Kelola Seluruh Permintaan RAB</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-lightBg text-navyPrimary font-bold uppercase text-[10px]">
+                            <tr><th class="p-4">ID / Tanggal</th><th class="p-4">Nama Pelanggan</th><th class="p-4">No. WhatsApp</th><th class="p-4">Kategori Pekerjaan</th><th class="p-4">Rincian Pesanan</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr>
+                        </thead>
+                        <tbody id="full-leads-tbody" class="divide-y divide-borderColor text-slateText font-medium"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: GANTI LOGO & NAMA PERUSAHAAN -->
+        <div id="tab-identity" class="tab-content hidden space-y-6">
+            <div class="bg-white p-8 rounded-2xl border border-borderColor card-shadow max-w-3xl space-y-6">
+                <div class="flex justify-between items-center border-b border-borderColor pb-4">
+                    <div>
+                        <h3 class="font-serif font-bold text-navyPrimary text-xl mb-1">Pengaturan Logo & Identitas Perusahaan</h3>
+                        <p class="text-xs text-slateText">Ubah nama merek, tagline, serta logo teks atau logo gambar (PNG/JPG) navbar utama.</p>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full text-xs flex items-center gap-1.5 shadow-sm border border-emerald-300">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Aktif di Web Utama
+                    </span>
+                </div>
+                <form onsubmit="handleCompanyIdentitySave(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Nama Perusahaan / Merek</label>
+                            <input type="text" id="company-name-input" required class="w-full bg-lightBg border border-borderColor rounded-lg p-3 text-xs focus:outline-none focus:border-bronzeGold" value="BERKAH JAYA">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Tagline / Sub-teks Logo</label>
+                            <input type="text" id="company-tagline-input" required class="w-full bg-lightBg border border-borderColor rounded-lg p-3 text-xs focus:outline-none focus:border-bronzeGold" value="Property & Contractor">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-borderColor">
+                        <div>
+                            <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Logo Inisial Teks (Default)</label>
+                            <input type="text" id="company-logo-text-input" maxlength="3" class="w-full bg-lightBg border border-borderColor rounded-lg p-3 text-xs uppercase text-center font-bold text-bronzeGold" value="B">
+                            <p class="text-[10px] text-slateText mt-1">Digunakan jika tidak mengupload gambar logo.</p>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Atau Upload Gambar Logo Baru</label>
+                            <input type="file" id="company-logo-file" accept="image/*" class="w-full p-2 bg-lightBg border border-borderColor rounded-lg text-xs cursor-pointer">
+                            <input type="hidden" id="company-logo-base64">
+                        </div>
+                    </div>
+                    <button type="submit" class="bg-bronzeGold text-navyPrimary font-bold px-6 py-3 rounded-lg text-xs uppercase tracking-widest hover:bg-navyPrimary hover:text-white transition shadow-md">
+                        <i class="fas fa-save mr-1"></i> Simpan & Perbarui Identitas Logo
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- TAB 6: KELOLA BANNER HERO -->
+        <div id="tab-hero" class="tab-content hidden space-y-6">
+            <div class="bg-white p-8 rounded-2xl border border-borderColor card-shadow max-w-3xl space-y-6">
+                <div class="flex justify-between items-center border-b border-borderColor pb-4">
+                    <div>
+                        <h3 class="font-serif font-bold text-navyPrimary text-xl mb-1">Pengaturan Banner Kartu Hero</h3>
+                        <p class="text-xs text-slateText">Ubah gambar, judul, keterangan, dan harga pada kartu kanan halaman utama.</p>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full text-xs flex items-center gap-1.5 shadow-sm border border-emerald-300">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Aktif di Web Utama
+                    </span>
+                </div>
+                <form onsubmit="handleHeroCardSave(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Judul Properti</label>
+                        <input type="text" id="hero-card-title" required class="w-full bg-lightBg border border-borderColor rounded-lg p-3 text-xs focus:outline-none focus:border-bronzeGold" value="Berkah Luxury Residence">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Keterangan / Tag</label>
+                        <input type="text" id="hero-card-desc" required class="w-full bg-lightBg border border-borderColor rounded-lg p-3 text-xs focus:outline-none focus:border-bronzeGold" value="Standar Arsitektur Modern">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Teks Harga</label>
+                        <input type="text" id="hero-card-price" required class="w-full bg-lightBg border border-borderColor rounded-lg p-3 text-xs focus:outline-none focus:border-bronzeGold" value="Mulai Rp 3,5 Jt / m²">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Upload Foto Kartu</label>
+                        <input type="file" id="hero-card-file" accept="image/*" class="w-full p-2 bg-lightBg border border-borderColor rounded-lg text-xs cursor-pointer">
+                        <input type="hidden" id="hero-card-base64">
+                    </div>
+                    <button type="submit" class="bg-bronzeGold text-navyPrimary font-bold px-6 py-3 rounded-lg text-xs uppercase tracking-widest hover:bg-navyPrimary hover:text-white transition shadow-md">
+                        <i class="fas fa-save mr-1"></i> Simpan & Sinkronkan Banner
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- TAB: FLOATING PROMO -->
+        <div id="tab-promo" class="tab-content hidden space-y-6">
+            <div class="bg-white p-8 rounded-2xl border border-borderColor card-shadow max-w-3xl space-y-6">
+                <div class="flex justify-between items-center border-b border-borderColor pb-4">
+                    <div>
+                        <h3 class="font-serif font-bold text-navyPrimary text-xl mb-1">Pengaturan Floating Promo</h3>
+                        <p class="text-xs text-slateText">Ubah teks badge pop-up promosi yang melayang di pojok kiri bawah website utama.</p>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full text-xs flex items-center gap-1.5 shadow-sm border border-emerald-300">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Aktif di Web Utama
+                    </span>
+                </div>
+                <form onsubmit="handleFloatingPromoSave(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Judul / Badge Promo</label>
+                        <input type="text" id="promo-title-input" required class="w-full bg-lightBg border border-borderColor rounded-lg p-3 text-xs focus:outline-none focus:border-bronzeGold" value="Promo Spesial Bulan Ini">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Isi Keterangan Promo</label>
+                        <textarea id="promo-desc-input" rows="3" required class="w-full bg-lightBg border border-borderColor rounded-lg p-3 text-xs focus:outline-none focus:border-bronzeGold resize-none">Diskon 10% Jasa Pengelolaan & Free Survey Lokasi!</textarea>
+                    </div>
+                    <button type="submit" class="bg-bronzeGold text-navyPrimary font-bold px-6 py-3 rounded-lg text-xs uppercase tracking-widest hover:bg-navyPrimary hover:text-white transition shadow-md">
+                        <i class="fas fa-save mr-1"></i> Simpan & Perbarui Floating Promo
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- TAB 7: UPLOAD VIDEO HERO -->
+        <div id="tab-video" class="tab-content hidden space-y-6">
+            <div class="bg-white p-8 rounded-2xl border border-borderColor card-shadow max-w-3xl space-y-6">
+                <div class="flex justify-between items-center border-b border-borderColor pb-4">
+                    <div>
+                        <h3 class="font-serif font-bold text-navyPrimary text-xl mb-1">Upload Video Background Hero</h3>
+                        <p class="text-xs text-slateText">Pilih berkas video (MP4) untuk latar belakang bagian utama website.</p>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full text-xs flex items-center gap-1.5 shadow-sm border border-emerald-300">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Aktif di Web Utama
+                    </span>
+                </div>
+                <form onsubmit="handleVideoUpload(event)" class="space-y-6">
+                    <input type="file" id="video-file-input" accept="video/mp4" required class="w-full p-3 bg-lightBg border border-borderColor rounded-lg text-xs">
+                    <button type="submit" id="btn-submit-video" class="bg-bronzeGold text-navyPrimary font-bold px-6 py-3 rounded-lg text-xs uppercase tracking-widest hover:bg-navyPrimary hover:text-white transition shadow-md">
+                        <i class="fas fa-cloud-upload-alt mr-1"></i> Simpan Video
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- TAB 8: INFO KONTAK KANTOR -->
+        <div id="tab-profile" class="tab-content hidden space-y-6">
+            <div class="bg-white p-8 rounded-2xl border border-borderColor card-shadow max-w-3xl space-y-6">
+                <div class="flex justify-between items-center border-b border-borderColor pb-4">
+                    <div>
+                        <h3 class="font-serif font-bold text-navyPrimary text-xl mb-1">Pengaturan Kontak & Alamat Kantor</h3>
+                        <p class="text-xs text-slateText">Atur nomor WhatsApp resmi dan alamat kantor yang tersinkron otomatis.</p>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full text-xs flex items-center gap-1.5 shadow-sm border border-emerald-300">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Aktif di Web Utama
+                    </span>
+                </div>
+                <form onsubmit="handleProfileSave(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Nomor WhatsApp Resmi Kantor</label>
+                        <input type="text" id="kantor-wa" required placeholder="Contoh: 6281234567890" class="w-full bg-lightBg border border-borderColor rounded-lg p-3 text-xs focus:outline-none focus:border-bronzeGold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-navyPrimary uppercase mb-1">Alamat Lengkap Kantor</label>
+                        <textarea id="kantor-alamat" rows="3" required placeholder="Contoh: Jl. Raya Properti No. 12, Jakarta Selatan" class="w-full bg-lightBg border border-borderColor rounded-lg p-3 text-xs focus:outline-none focus:border-bronzeGold resize-none"></textarea>
+                    </div>
+                    <button type="submit" class="bg-bronzeGold text-navyPrimary font-bold px-6 py-3 rounded-lg text-xs uppercase tracking-widest hover:bg-navyPrimary hover:text-white transition shadow-md">
+                        <i class="fas fa-save mr-1"></i> Simpan Kontak Kantor
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL EDIT PRODUK -->
+    <div id="modal-edit-product" class="fixed inset-0 bg-navyPrimary/80 z-50 hidden flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-8 border border-borderColor relative shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModalEdit()" class="absolute top-6 right-6 text-slateText hover:text-navyPrimary"><i class="fas fa-times text-xl"></i></button>
+            <h3 class="font-serif font-bold text-xl text-navyPrimary border-b border-borderColor pb-3">Edit Data Produk</h3>
+            <form onsubmit="handleSaveEditProduct(event)" class="space-y-4">
+                <input type="hidden" id="edit-prod-id">
+                <input type="text" id="edit-prod-nama" required class="w-full bg-lightBg border border-borderColor rounded-lg p-3 text-xs" placeholder="Nama Produk">
+                <select id="edit-prod-kategori" required class="w-full bg-lightBg border border-borderColor rounded-lg p-3 text-xs">
+                    <option value="Pembangunan Dari Nol">1. Pembangunan Dari Nol</option>
+                    <option value="Renovasi">2. Renovasi</option>
+                    <option value="Desain Interior">3. Desain Interior</option>
+                    <option value="Desain Eksterior">4. Desain Eksterior</option>
+                </select>
+                <input type="number" id="edit-prod-harga" required class="w-full bg-lightBg border border-borderColor rounded-lg p-3 text-xs" placeholder="Harga">
+                <input type="file" id="edit-prod-gambar-file" accept="image/*" class="w-full p-2 bg-lightBg border border-borderColor rounded-lg text-xs">
+                <input type="hidden" id="edit-prod-gambar-base64">
+                
+                <div class="p-4 bg-lightBg border border-borderColor rounded-xl space-y-2.5">
+                    <label class="block text-xs font-bold text-navyPrimary uppercase mb-1"><i class="fas fa-icons text-bronzeGold mr-1"></i> Spesifikasi Material Berikon</label>
+                    <input type="text" id="edit-spec-pondasi" placeholder="Pondasi" class="w-full bg-white border border-borderColor rounded-lg p-2 text-xs">
+                    <input type="text" id="edit-spec-dinding" placeholder="Dinding" class="w-full bg-white border border-borderColor rounded-lg p-2 text-xs">
+                    <input type="text" id="edit-spec-lantai" placeholder="Lantai" class="w-full bg-white border border-borderColor rounded-lg p-2 text-xs">
+                    <input type="text" id="edit-spec-atap" placeholder="Atap" class="w-full bg-white border border-borderColor rounded-lg p-2 text-xs">
+                    <input type="text" id="edit-spec-tambahan" placeholder="Tambahan" class="w-full bg-white border border-borderColor rounded-lg p-2 text-xs">
+                </div>
+
+                <div class="flex justify-end gap-3 pt-2">
+                    <button type="button" onclick="closeModalEdit()" class="px-4 py-2 rounded-lg text-xs font-bold bg-lightBg border">Batal</button>
+                    <button type="submit" class="bg-bronzeGold text-navyPrimary font-bold px-6 py-2 rounded-lg text-xs uppercase">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DETAIL KLIEN -->
+    <div id="modal-detail-client" class="fixed inset-0 bg-navyPrimary/80 z-50 hidden flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 border border-borderColor relative shadow-2xl space-y-4">
+            <button onclick="closeModalDetail()" class="absolute top-5 right-5 text-slateText hover:text-navyPrimary text-lg"><i class="fas fa-times"></i></button>
+            <div class="flex items-center gap-3 border-b border-borderColor pb-3">
+                <div class="w-10 h-10 bg-bronzeGold text-navyPrimary rounded-xl flex items-center justify-center font-bold"><i class="fas fa-file-alt"></i></div>
+                <div>
+                    <h3 class="font-serif font-bold text-base text-navyPrimary" id="modal-detail-title">Detail Isian Klien</h3>
+                    <p class="text-[10px] text-slateText" id="modal-detail-id">ID: -</p>
+                </div>
+            </div>
+            <div id="modal-detail-content" class="space-y-3 text-xs text-navyPrimary"></div>
+            <div class="pt-3 border-t border-borderColor flex justify-end">
+                <button onclick="closeModalDetail()" class="bg-navyPrimary text-white font-bold px-5 py-2 rounded-lg text-xs uppercase tracking-widest hover:bg-bronzeGold hover:text-navyPrimary transition">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT ENGINE -->
+    <script>
+        const liveChannel = new BroadcastChannel('berkah_jaya_realtime');
+
+        function formatWA(phone) {
+            if (!phone) return '#';
+            let cleaned = phone.replace(/\D/g, '');
+            if (cleaned.startsWith('0')) cleaned = '62' + cleaned.slice(1);
+            return cleaned;
+        }
+
+        function playBeepSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+                gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.3);
+            } catch(e) {}
+        }
+
+        function openDB() {
+            return new Promise((resolve, reject) => {
+                const req = indexedDB.open('BerkahJayaGalleryDB', 2);
+                req.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains('projects')) {
+                        db.createObjectStore('projects', { keyPath: 'id' });
+                    }
+                };
+                req.onsuccess = (e) => resolve(e.target.result);
+                req.onerror = (e) => reject(e.target.error);
+            });
+        }
+
+        async function saveProjectToDB(projectData) {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction('projects', 'readwrite');
+                tx.objectStore('projects').put(projectData);
+                tx.oncomplete = () => resolve();
+                tx.onerror = (e) => reject(e.target.error);
+            });
+        }
+
+        async function getAllProjectsFromDB() {
+            try {
+                const db = await openDB();
+                return new Promise((resolve, reject) => {
+                    const req = db.transaction('projects', 'readonly').objectStore('projects').getAll();
+                    req.onsuccess = () => resolve(req.result);
+                    req.onerror = (e) => reject(e.target.error);
+                });
+            } catch (e) { return []; }
+        }
+
+        async function deleteProjectFromDB(id) {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction('projects', 'readwrite');
+                tx.objectStore('projects').delete(id);
+                tx.oncomplete = () => resolve();
+                tx.onerror = (e) => reject(e.target.error);
+            });
+        }
+
+        function openVideoDB() {
+            return new Promise((resolve, reject) => {
+                const req = indexedDB.open('BerkahJayaDB', 1);
+                req.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains('videos')) {
+                        db.createObjectStore('videos');
+                    }
+                };
+                req.onsuccess = (e) => resolve(e.target.result);
+                req.onerror = (e) => reject(e.target.error);
+            });
+        }
+
+        async function handleVideoUpload(e) {
+            e.preventDefault();
+            const fileInput = document.getElementById('video-file-input');
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            if (file.size > 35 * 1024 * 1024) {
+                alert('Ukuran video terlalu besar! Maksimal 35 MB.');
+                return;
+            }
+
+            try {
+                const db = await openVideoDB();
+                const tx = db.transaction('videos', 'readwrite');
+                const store = tx.objectStore('videos');
+                store.put(file, 'hero_video');
+
+                tx.oncomplete = () => {
+                    alert('Video Hero Berhasil Disimpan & Aktif di Web Utama!');
+                    fileInput.value = '';
+                    liveChannel.postMessage({ type: 'VIDEO_UPDATED' });
+                };
+            } catch (err) {
+                alert('Gagal menyimpan video: ' + err.message);
+            }
+        }
+
+        function handleHeroCardSave(e) {
+            e.preventDefault();
+            const title = document.getElementById('hero-card-title').value;
+            const desc = document.getElementById('hero-card-desc').value;
+            const price = document.getElementById('hero-card-price').value;
+            let img = document.getElementById('hero-card-base64').value;
+
+            const existing = JSON.parse(localStorage.getItem('admin_hero_card') || '{}');
+            if (!img) img = existing.img || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80';
+
+            const heroData = { title, desc, price, img };
+            localStorage.setItem('admin_hero_card', JSON.stringify(heroData));
+            liveChannel.postMessage({ type: 'HERO_CARD_UPDATED', data: heroData });
+            alert('Banner Kartu Hero Berhasil Disimpan & Aktif di Web Utama!');
+        }
+
+        function handleFloatingPromoSave(e) {
+            e.preventDefault();
+            const title = document.getElementById('promo-title-input').value;
+            const desc = document.getElementById('promo-desc-input').value;
+
+            const promoData = { title, desc };
+            localStorage.setItem('admin_floating_promo', JSON.stringify(promoData));
+            liveChannel.postMessage({ type: 'PROMO_UPDATED', data: promoData });
+            alert('Floating Promo Berhasil Disimpan & Aktif di Web Utama!');
+        }
+
+        function handleCompanyIdentitySave(e) {
+            e.preventDefault();
+            const name = document.getElementById('company-name-input').value;
+            const tagline = document.getElementById('company-tagline-input').value;
+            const logoText = document.getElementById('company-logo-text-input').value;
+            let logoImg = document.getElementById('company-logo-base64').value;
+
+            const existing = JSON.parse(localStorage.getItem('admin_company_identity') || '{}');
+            if (!logoImg) logoImg = existing.logoImg || '';
+
+            const identityData = { name, tagline, logoText, logoImg };
+            localStorage.setItem('admin_company_identity', JSON.stringify(identityData));
+            liveChannel.postMessage({ type: 'IDENTITY_UPDATED', data: identityData });
+            alert('Logo & Identitas Perusahaan Berhasil Disimpan & Aktif di Web Utama!');
+        }
+
+        function handleProfileSave(e) {
+            e.preventDefault();
+            const wa = document.getElementById('kantor-wa').value;
+            const alamat = document.getElementById('kantor-alamat').value;
+
+            const profileData = { wa, alamat };
+            localStorage.setItem('admin_office_profile', JSON.stringify(profileData));
+            liveChannel.postMessage({ type: 'PROFILE_UPDATED', data: profileData });
+            alert('Kontak & Alamat Kantor Berhasil Disimpan & Aktif di Web Utama!');
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-bronzeGold', 'text-navyPrimary', 'font-bold');
+                btn.classList.add('text-slateText');
+            });
+
+            const targetTab = document.getElementById(`tab-${tabId}`);
+            const targetBtn = document.getElementById(`nav-${tabId}`);
+
+            if (targetTab) targetTab.classList.remove('hidden');
+            if (targetBtn) {
+                targetBtn.classList.add('bg-bronzeGold', 'text-navyPrimary', 'font-bold');
+                targetBtn.classList.remove('text-slateText');
+            }
+
+            const titles = {
+                'overview': 'Dashboard Ringkasan Utama',
+                'products': 'Kelola Katalog Produk',
+                'gallery': 'Kelola Galeri Proyek & Transformasi',
+                'surveys': 'Kelola Permintaan Survey',
+                'leads': 'Data Permintaan RAB',
+                'identity': 'Pengaturan Logo & Identitas Perusahaan',
+                'hero': 'Pengaturan Banner Kartu Hero',
+                'promo': 'Pengaturan Floating Promo',
+                'video': 'Upload Video Background Hero',
+                'profile': 'Pengaturan Kontak Kantor'
+            };
+            document.getElementById('page-title').textContent = titles[tabId] || 'Dashboard Admin';
+            renderAllTables();
+        }
+
+        function updateMenuBadges(surveysCount, leadsCount) {
+            const bOv = document.getElementById('badge-overview');
+            const bSrv = document.getElementById('badge-surveys');
+            const bLd = document.getElementById('badge-leads');
+            const total = surveysCount + leadsCount;
+
+            if (total > 0) { bOv.textContent = total; bOv.classList.remove('hidden'); } else { bOv.classList.add('hidden'); }
+            if (surveysCount > 0) { bSrv.textContent = surveysCount; bSrv.classList.remove('hidden'); } else { bSrv.classList.add('hidden'); }
+            if (leadsCount > 0) { bLd.textContent = leadsCount; bLd.classList.remove('hidden'); } else { bLd.classList.add('hidden'); }
+        }
+
+        async function renderAllTables() {
+            const surveys = JSON.parse(localStorage.getItem('admin_surveys') || '[]');
+            const leads = JSON.parse(localStorage.getItem('admin_leads') || '[]');
+            const products = JSON.parse(localStorage.getItem('admin_products') || '[]');
+
+            const pSurveys = surveys.filter(s => s.status !== 'Sudah Ditindaklanjuti');
+            const pLeads = leads.filter(l => l.status !== 'Sudah Ditindaklanjuti');
+
+            updateMenuBadges(pSurveys.length, pLeads.length);
+
+            document.getElementById('stat-pending-surveys').textContent = pSurveys.length;
+            document.getElementById('stat-pending-leads').textContent = pLeads.length;
+            document.getElementById('stat-total-surveys').textContent = surveys.length;
+            document.getElementById('stat-total-leads').textContent = leads.length;
+
+            const priorityTbody = document.getElementById('priority-pending-tbody');
+            let combined = [...pSurveys.map(s => ({ ...s, dataType: 'SURVEY' })), ...pLeads.map(l => ({ ...l, dataType: 'ORDER RAB' }))];
+
+            if (combined.length === 0) {
+                priorityTbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-emerald-600 font-bold"><i class="fas fa-check-circle mr-1"></i> Semua orderan & survey sudah ditindaklanjuti.</td></tr>`;
+            } else {
+                priorityTbody.innerHTML = combined.map(item => {
+                    const isSrv = item.dataType === 'SURVEY';
+                    const phone = isSrv ? item.hp : item.wa;
+                    const detail = isSrv ? `Lokasi: ${item.alamat}` : `Pesanan: ${item.pesanan || item.kategori}`;
+                    return `
+                    <tr class="hover:bg-rose-50/30 transition">
+                        <td class="p-4"><span class="${isSrv ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-700'} px-2.5 py-1 rounded-md text-[10px] font-bold">${item.dataType}</span></td>
+                        <td class="p-4 font-mono text-[11px]">${item.timestamp || item.tanggal}</td>
+                        <td class="p-4 text-navyPrimary font-bold">${item.nama}</td>
+                        <td class="p-4 font-mono font-bold text-navyPrimary">${phone}</td>
+                        <td class="p-4 max-w-xs truncate">${detail}</td>
+                        <td class="p-4"><span class="bg-rose-100 text-rose-700 font-bold px-2.5 py-1 rounded-full text-[10px] border border-rose-300">Belum Diproses</span></td>
+                        <td class="p-4 text-right space-x-1">
+                            <button onclick="openClientDetail('${isSrv ? 'survey' : 'lead'}', '${item.id}')" class="bg-navyPrimary text-white px-2.5 py-1.5 rounded-md text-[10px] font-bold hover:bg-bronzeGold hover:text-navyPrimary transition">Detail</button>
+                            <button onclick="handleActionClick('${isSrv ? 'survey' : 'lead'}', '${item.id}')" class="bg-emerald-600 text-white px-2.5 py-1.5 rounded-md text-[10px] font-bold hover:bg-emerald-700 transition"><i class="fab fa-whatsapp"></i> Chat</button>
+                        </td>
+                    </tr>`;
+                }).join('');
+            }
+
+            document.getElementById('bookkeeping-tbody').innerHTML = leads.map(l => `
+                <tr class="hover:bg-lightBg">
+                    <td class="p-4 font-mono font-bold text-navyPrimary">${l.id}</td>
+                    <td class="p-4 font-mono text-[11px]">${l.tanggal} (${l.timestamp || ''})</td>
+                    <td class="p-4 text-navyPrimary font-semibold">${l.nama}</td>
+                    <td class="p-4 font-mono font-bold text-navyPrimary">${l.wa}</td>
+                    <td class="p-4 font-semibold text-navyPrimary">${l.kategori}</td>
+                    <td class="p-4"><span class="${l.status === 'Sudah Ditindaklanjuti' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'} font-bold px-2.5 py-1 rounded-full text-[10px]">${l.status || 'Belum Diproses'}</span></td>
+                    <td class="p-4 text-right space-x-1">
+                        <button onclick="openClientDetail('lead', '${l.id}')" class="bg-lightBg border text-navyPrimary px-2.5 py-1.5 rounded-md text-[10px] font-bold">Detail</button>
+                        <button onclick="handleActionClick('lead', '${l.id}')" class="bg-navyPrimary text-white px-2.5 py-1.5 rounded-md text-[10px] font-bold hover:bg-bronzeGold hover:text-navyPrimary transition"><i class="fab fa-whatsapp"></i> Chat</button>
+                    </td>
+                </tr>
+            `).join('') || `<tr><td colspan="7" class="p-6 text-center text-slateText">Belum ada data.</td></tr>`;
+
+            const productsTbody = document.getElementById('products-tbody');
+            if (productsTbody) {
+                productsTbody.innerHTML = products.map(p => `
+                    <tr class="hover:bg-lightBg">
+                        <td class="p-4"><img src="${p.gambar}" class="w-12 h-12 rounded-lg object-cover border"></td>
+                        <td class="p-4 font-bold text-navyPrimary">${p.nama}</td>
+                        <td class="p-4"><span class="bg-navyPrimary text-white text-[10px] px-2.5 py-1 rounded-md">${p.kategori}</span></td>
+                        <td class="p-4 font-mono font-bold text-bronzeGold">Rp ${parseInt(p.harga).toLocaleString('id-ID')} / m²</td>
+                        <td class="p-4 text-[11px]">${p.specs ? Object.values(p.specs).filter(Boolean).join(' | ') : '-'}</td>
+                        <td class="p-4"><span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded-full text-[9px] border border-emerald-300 inline-flex items-center gap-1"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span> Aktif di Web</span></td>
+                        <td class="p-4 text-right space-x-2">
+                            <button onclick="openModalEdit('${p.id}')" class="bg-bronzeGold text-navyPrimary px-3 py-1.5 rounded-md text-[10px] font-bold">Edit</button>
+                            <button onclick="deleteProduct('${p.id}')" class="bg-rose-500 text-white px-3 py-1.5 rounded-md text-[10px] font-bold">Hapus</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            renderProjectsTable();
+            renderFullSurveysTable(surveys);
+            renderFullLeadsTable(leads);
+        }
+
+        function exportLeadsToExcel() {
+            const leads = JSON.parse(localStorage.getItem('admin_leads') || '[]');
+            if (leads.length === 0) {
+                alert('Tidak ada data orderan atau RAB untuk diexport.');
+                return;
+            }
+
+            let csvContent = "ID Order,Tanggal Masuk,Nama Pelanggan,Nomor WhatsApp,Kategori Pekerjaan,Keterangan Pesanan,Status\n";
+            
+            leads.forEach(l => {
+                const row = [
+                    `"${l.id || ''}"`,
+                    `"${l.tanggal || ''} ${l.timestamp || ''}"`,
+                    `"${(l.nama || '').replace(/"/g, '""')}"`,
+                    `"${l.wa || ''}"`,
+                    `"${(l.kategori || '').replace(/"/g, '""')}"`,
+                    `"${(l.pesanan || '').replace(/"/g, '""')}"`,
+                    `"${l.status || 'Belum Diproses'}"`
+                ];
+                csvContent += row.join(",") + "\n";
+            });
+
+            const blob = new Blob(["\ufeff" + csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('href', url);
+            a.setAttribute('download', `Rekap_Order_BerkahJaya_${new Date().toISOString().slice(0, 10)}.csv`);
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function renderFullSurveysTable(surveys) {
+            const tbody = document.getElementById('full-survey-tbody');
+            if (!tbody) return;
+            tbody.innerHTML = surveys.map(s => `
+                <tr class="hover:bg-lightBg">
+                    <td class="p-4 font-mono">${s.id}</td>
+                    <td class="p-4 font-bold text-navyPrimary">${s.nama}</td>
+                    <td class="p-4 font-mono font-bold">${s.hp}</td>
+                    <td class="p-4">${s.alamat}</td>
+                    <td class="p-4">${s.layanan}</td>
+                    <td class="p-4 font-mono">${s.tanggal}</td>
+                    <td class="p-4"><span class="${s.status === 'Sudah Ditindaklanjuti' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'} font-bold px-2 py-1 rounded-full text-[10px]">${s.status || 'Belum Diproses'}</span></td>
+                    <td class="p-4 text-right space-x-1">
+                        <button onclick="openClientDetail('survey', '${s.id}')" class="bg-navyPrimary text-white px-2.5 py-1.5 rounded-md text-[10px] font-bold">Detail</button>
+                        <button onclick="handleActionClick('survey', '${s.id}')" class="bg-emerald-600 text-white px-2.5 py-1.5 rounded-md text-[10px] font-bold"><i class="fab fa-whatsapp"></i> Chat</button>
+                    </td>
+                </tr>
+            `).join('') || `<tr><td colspan="8" class="p-6 text-center text-slateText">Belum ada data.</td></tr>`;
+        }
+
+        function renderFullLeadsTable(leads) {
+            const tbody = document.getElementById('full-leads-tbody');
+            if (!tbody) return;
+            tbody.innerHTML = leads.map(l => `
+                <tr class="hover:bg-lightBg">
+                    <td class="p-4 font-mono"><b>${l.id}</b><br><span class="text-[10px] text-slateText">${l.tanggal}</span></td>
+                    <td class="p-4 font-bold text-navyPrimary">${l.nama}</td>
+                    <td class="p-4 font-mono font-bold">${l.wa}</td>
+                    <td class="p-4">${l.kategori}</td>
+                    <td class="p-4 max-w-xs truncate">${l.pesanan || '-'}</td>
+                    <td class="p-4"><span class="${l.status === 'Sudah Ditindaklanjuti' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'} font-bold px-2 py-1 rounded-full text-[10px]">${l.status || 'Belum Diproses'}</span></td>
+                    <td class="p-4 text-right space-x-1">
+                        <button onclick="openClientDetail('lead', '${l.id}')" class="bg-navyPrimary text-white px-2.5 py-1.5 rounded-md text-[10px] font-bold">Detail</button>
+                        <button onclick="handleActionClick('lead', '${l.id}')" class="bg-emerald-600 text-white px-2.5 py-1.5 rounded-md text-[10px] font-bold"><i class="fab fa-whatsapp"></i> Chat</button>
+                    </td>
+                </tr>
+            `).join('') || `<tr><td colspan="7" class="p-6 text-center text-slateText">Belum ada data.</td></tr>`;
+        }
+
+        function openClientDetail(type, id) {
+            const list = JSON.parse(localStorage.getItem(type === 'survey' ? 'admin_surveys' : 'admin_leads') || '[]');
+            const item = list.find(d => d.id === id);
+            if (!item) return;
+
+            document.getElementById('modal-detail-title').textContent = type === 'survey' ? 'Detail Permintaan Survey' : 'Detail Permintaan RAB';
+            document.getElementById('modal-detail-id').textContent = `ID: ${item.id} (${item.tanggal || item.timestamp || '-'})`;
+
+            const contentDiv = document.getElementById('modal-detail-content');
+            if (type === 'survey') {
+                contentDiv.innerHTML = `
+                    <div class="bg-lightBg p-3 rounded-lg border space-y-2">
+                        <div><strong class="text-slateText uppercase text-[10px] block">Nama:</strong> <span class="font-bold text-sm">${item.nama}</span></div>
+                        <div><strong class="text-slateText uppercase text-[10px] block">No. HP:</strong> <span class="font-mono font-bold">${item.hp}</span></div>
+                        <div><strong class="text-slateText uppercase text-[10px] block">Alamat:</strong> <span>${item.alamat}</span></div>
+                        <div><strong class="text-slateText uppercase text-[10px] block">Layanan:</strong> <span class="text-bronzeGold font-bold">${item.layanan}</span></div>
+                        <div><strong class="text-slateText uppercase text-[10px] block">Tanggal:</strong> <span>${item.tanggal}</span></div>
+                    </div>`;
+            } else {
+                contentDiv.innerHTML = `
+                    <div class="bg-lightBg p-3 rounded-lg border space-y-2">
+                        <div><strong class="text-slateText uppercase text-[10px] block">Nama:</strong> <span class="font-bold text-sm">${item.nama}</span></div>
+                        <div><strong class="text-slateText uppercase text-[10px] block">WhatsApp:</strong> <span class="font-mono font-bold">${item.wa}</span></div>
+                        <div><strong class="text-slateText uppercase text-[10px] block">Kategori:</strong> <span class="text-bronzeGold font-bold">${item.kategori}</span></div>
+                        <div><strong class="text-slateText uppercase text-[10px] block">Keterangan:</strong> <p class="bg-white p-2 rounded border mt-1">${item.pesanan || '-'}</p></div>
+                    </div>`;
+            }
+            document.getElementById('modal-detail-client').classList.remove('hidden');
+        }
+
+        function closeModalDetail() { document.getElementById('modal-detail-client').classList.add('hidden'); }
+
+        function handleActionClick(type, id) {
+            let item = null, phone = '', msg = '';
+            if (type === 'survey') {
+                let surveys = JSON.parse(localStorage.getItem('admin_surveys') || '[]');
+                surveys = surveys.map(s => { if (s.id === id) { s.status = 'Sudah Ditindaklanjuti'; item = s; } return s; });
+                localStorage.setItem('admin_surveys', JSON.stringify(surveys));
+                if (item) {
+                    phone = formatWA(item.hp);
+                    msg = `Halo *${item.nama}*, terima kasih telah mengajukan *Survey Lokasi Gratis* di Berkah Jaya Property untuk layanan *${item.layanan}* pada *${item.tanggal}* di *${item.alamat}*. Tim teknis kami siap hadir.`;
+                }
+            } else {
+                let leads = JSON.parse(localStorage.getItem('admin_leads') || '[]');
+                leads = leads.map(l => { if (l.id === id) { l.status = 'Sudah Ditindaklanjuti'; item = l; } return l; });
+                localStorage.setItem('admin_leads', JSON.stringify(leads));
+                if (item) {
+                    phone = formatWA(item.wa);
+                    msg = `Halo *${item.nama}*, terima kasih telah menghubungi Berkah Jaya Property. Kami telah menerima permintaan *RAB* Anda untuk *${item.kategori}*. Kami sedang menyiapkan rincian anggarannya.`;
+                }
+            }
+            renderAllTables();
+            if (phone) window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function readAndCompressFile(file, maxWidth = 1200) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let w = img.width, h = img.height;
+                        if (w > maxWidth) { h = Math.round((h * maxWidth) / w); w = maxWidth; }
+                        canvas.width = w; canvas.height = h;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, w, h);
+                        resolve(canvas.toDataURL('image/jpeg', 0.82));
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function toggleBeforeAfterInputs(checked) {
+            document.getElementById('ba-inputs-wrapper').classList.toggle('hidden', !checked);
+        }
+
+        async function handleAddProjectAlbum(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit-gallery');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Menyimpan...';
+
+            try {
+                const judul = document.getElementById('proj-judul').value;
+                const kategori = document.getElementById('proj-kategori').value;
+                const isBA = document.getElementById('chk-before-after').checked;
+                const files = Array.from(document.getElementById('proj-photos-file').files);
+
+                let photos = [];
+                for (let f of files) {
+                    photos.push(await readAndCompressFile(f));
+                }
+
+                let beforeImg = null, afterImg = null;
+                if (isBA) {
+                    const bFile = document.getElementById('proj-before-file').files[0];
+                    const aFile = document.getElementById('proj-after-file').files[0];
+                    if (bFile) beforeImg = await readAndCompressFile(bFile);
+                    if (aFile) afterImg = await readAndCompressFile(aFile);
+                }
+
+                const newProj = { id: 'PRJ-' + Date.now(), judul, kategori, photos, isBeforeAfter: isBA, beforeImg, afterImg };
+                await saveProjectToDB(newProj);
+                
+                liveChannel.postMessage({ type: 'PROJECTS_UPDATED' });
+                alert('Album Proyek Berhasil Disimpan & Aktif di Web Utama!');
+                e.target.reset();
+                toggleBeforeAfterInputs(false);
+                renderProjectsTable();
+            } catch (err) {
+                alert('Gagal: ' + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-cloud-upload-alt mr-1"></i> Simpan Album Proyek';
+            }
+        }
+
+        async function handleDeleteProject(id) {
+            if (confirm('Hapus album proyek ini?')) {
+                await deleteProjectFromDB(id);
+                liveChannel.postMessage({ type: 'PROJECTS_UPDATED' });
+                renderProjectsTable();
+            }
+        }
+
+        async function renderProjectsTable() {
+            const projects = await getAllProjectsFromDB();
+            const tbody = document.getElementById('projects-tbody');
+            if (!tbody) return;
+
+            if (projects.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slateText">Belum ada album proyek.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = projects.map(p => `
+                <tr class="hover:bg-lightBg">
+                    <td class="p-4"><img src="${p.photos[0]}" class="w-12 h-12 rounded-lg object-cover border"></td>
+                    <td class="p-4 font-bold text-navyPrimary">${p.judul}</td>
+                    <td class="p-4"><span class="bg-navyPrimary text-white text-[10px] px-2.5 py-1 rounded-md">${p.kategori}</span></td>
+                    <td class="p-4 font-bold text-bronzeGold">${p.photos.length} Foto</td>
+                    <td class="p-4">${p.isBeforeAfter ? '<span class="bg-emerald-100 text-emerald-700 font-bold px-2 py-1 rounded-md text-[10px]">Aktif</span>' : '-'}</td>
+                    <td class="p-4"><span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded-full text-[9px] border border-emerald-300 inline-flex items-center gap-1"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span> Aktif di Web</span></td>
+                    <td class="p-4 text-right"><button onclick="handleDeleteProject('${p.id}')" class="bg-rose-500 text-white px-3 py-1.5 rounded-md text-[10px] font-bold">Hapus</button></td>
+                </tr>
+            `).join('');
+        }
+
+        function handleAddProduct(e) {
+            e.preventDefault();
+            const nama = document.getElementById('prod-nama').value;
+            const kategori = document.getElementById('prod-kategori').value;
+            const harga = document.getElementById('prod-harga').value;
+            const gambar = document.getElementById('prod-gambar-base64').value || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80';
+            const specs = {
+                pondasi: document.getElementById('spec-pondasi').value,
+                dinding: document.getElementById('spec-dinding').value,
+                lantai: document.getElementById('spec-lantai').value,
+                atap: document.getElementById('spec-atap').value,
+                tambahan: document.getElementById('spec-tambahan').value
+            };
+
+            let products = JSON.parse(localStorage.getItem('admin_products') || '[]');
+            products.unshift({ id: 'PRD-' + Date.now(), nama, kategori, harga, gambar, specs });
+            localStorage.setItem('admin_products', JSON.stringify(products));
+            liveChannel.postMessage({ type: 'PRODUCTS_UPDATED' });
+            alert('Produk berhasil disimpan & aktif di web utama!');
+            e.target.reset();
+            renderAllTables();
+        }
+
+        function openModalEdit(id) {
+            const products = JSON.parse(localStorage.getItem('admin_products') || '[]');
+            const p = products.find(prod => prod.id === id);
+            if (!p) return;
+            document.getElementById('edit-prod-id').value = p.id;
+            document.getElementById('edit-prod-nama').value = p.nama;
+            document.getElementById('edit-prod-kategori').value = p.kategori;
+            document.getElementById('edit-prod-harga').value = p.harga;
+            document.getElementById('edit-prod-gambar-base64').value = p.gambar;
+            if (p.specs) {
+                document.getElementById('edit-spec-pondasi').value = p.specs.pondasi || '';
+                document.getElementById('edit-spec-dinding').value = p.specs.dinding || '';
+                document.getElementById('edit-spec-lantai').value = p.specs.lantai || '';
+                document.getElementById('edit-spec-atap').value = p.specs.atap || '';
+                document.getElementById('edit-spec-tambahan').value = p.specs.tambahan || '';
+            }
+            document.getElementById('modal-edit-product').classList.remove('hidden');
+        }
+
+        function closeModalEdit() { document.getElementById('modal-edit-product').classList.add('hidden'); }
+
+        function handleSaveEditProduct(e) {
+            e.preventDefault();
+            const id = document.getElementById('edit-prod-id').value;
+            let products = JSON.parse(localStorage.getItem('admin_products') || '[]');
+            const updatedSpecs = {
+                pondasi: document.getElementById('edit-spec-pondasi').value,
+                dinding: document.getElementById('edit-spec-dinding').value,
+                lantai: document.getElementById('edit-spec-lantai').value,
+                atap: document.getElementById('edit-spec-atap').value,
+                tambahan: document.getElementById('edit-spec-tambahan').value
+            };
+            products = products.map(p => p.id === id ? { ...p, nama: document.getElementById('edit-prod-nama').value, kategori: document.getElementById('edit-prod-kategori').value, harga: document.getElementById('edit-prod-harga').value, specs: updatedSpecs, gambar: document.getElementById('edit-prod-gambar-base64').value } : p);
+            localStorage.setItem('admin_products', JSON.stringify(products));
+            liveChannel.postMessage({ type: 'PRODUCTS_UPDATED' });
+            closeModalEdit();
+            renderAllTables();
+        }
+
+        function deleteProduct(id) {
+            if (confirm('Hapus produk ini?')) {
+                let products = JSON.parse(localStorage.getItem('admin_products') || '[]');
+                products = products.filter(p => p.id !== id);
+                localStorage.setItem('admin_products', JSON.stringify(products));
+                liveChannel.postMessage({ type: 'PRODUCTS_UPDATED' });
+                renderAllTables();
+            }
+        }
+
+        function setupImageUpload(fileId, base64Id) {
+            const f = document.getElementById(fileId);
+            const b = document.getElementById(base64Id);
+            if (f) {
+                f.addEventListener('change', async (e) => {
+                    const file = e.target.files[0];
+                    if (file) b.value = await readAndCompressFile(file);
+                });
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderAllTables();
+            setupImageUpload('prod-gambar-file', 'prod-gambar-base64');
+            setupImageUpload('edit-prod-gambar-file', 'edit-prod-gambar-base64');
+            setupImageUpload('hero-card-file', 'hero-card-base64');
+            setupImageUpload('company-logo-file', 'company-logo-base64');
+
+            const savedProfile = JSON.parse(localStorage.getItem('admin_office_profile') || 'null');
+            if (savedProfile) {
+                if(document.getElementById('kantor-wa')) document.getElementById('kantor-wa').value = savedProfile.wa || '';
+                if(document.getElementById('kantor-alamat')) document.getElementById('kantor-alamat').value = savedProfile.alamat || '';
+            }
+
+            const savedHero = JSON.parse(localStorage.getItem('admin_hero_card') || 'null');
+            if (savedHero) {
+                if(document.getElementById('hero-card-title')) document.getElementById('hero-card-title').value = savedHero.title || '';
+                if(document.getElementById('hero-card-desc')) document.getElementById('hero-card-desc').value = savedHero.desc || '';
+                if(document.getElementById('hero-card-price')) document.getElementById('hero-card-price').value = savedHero.price || '';
+            }
+
+            const savedPromo = JSON.parse(localStorage.getItem('admin_floating_promo') || 'null');
+            if (savedPromo) {
+                if(document.getElementById('promo-title-input')) document.getElementById('promo-title-input').value = savedPromo.title || '';
+                if(document.getElementById('promo-desc-input')) document.getElementById('promo-desc-input').value = savedPromo.desc || '';
+            }
+
+            const savedIdentity = JSON.parse(localStorage.getItem('admin_company_identity') || 'null');
+            if (savedIdentity) {
+                if(document.getElementById('company-name-input')) document.getElementById('company-name-input').value = savedIdentity.name || '';
+                if(document.getElementById('company-tagline-input')) document.getElementById('company-tagline-input').value = savedIdentity.tagline || '';
+                if(document.getElementById('company-logo-text-input')) document.getElementById('company-logo-text-input').value = savedIdentity.logoText || '';
+            }
+        });
+    </script>
+</body>
+</html>
