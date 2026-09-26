@@ -255,7 +255,7 @@
         </div>
     </section>
 
-    <!-- SEKSI ALUR KERJA TRANSPARAN & GARANSI RESMI -->
+    <!-- SEKSI ALUR KERJA TRANSPARAN & GARansi RESMI -->
     <section id="alur-garansi" class="py-20 bg-white border-t border-borderColor">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="text-center max-w-3xl mx-auto mb-16">
@@ -352,7 +352,7 @@
         </div>
     </section>
 
-    <!-- SEKSI GALERI PROYEK (DINAMIS INDEXEDDB MULTI-FOTO) -->
+    <!-- SEKSI GALERI PROYEK (DINAMIS DARI FIREBASE) -->
     <section id="galeri" class="py-20 bg-lightBg border-t border-borderColor">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="text-center max-w-3xl mx-auto mb-12">
@@ -368,7 +368,7 @@
         </div>
     </section>
 
-    <!-- SEKSI BEFORE & AFTER (DINAMIS TERHUBUNG KE ADMIN INDEXEDDB) -->
+    <!-- SEKSI BEFORE & AFTER -->
     <section id="before-after" class="py-20 bg-white border-t border-borderColor">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="text-center max-w-3xl mx-auto mb-16">
@@ -381,7 +381,7 @@
                 <div class="relative w-full h-[350px] md:h-[480px] rounded-2xl overflow-hidden card-shadow select-none border border-borderColor" id="slider-container">
                     <img id="ba-img-after" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="Sesudah" class="absolute inset-0 w-full h-full object-cover">
                     <div id="before-image-wrapper" class="absolute inset-0 w-full h-full overflow-hidden" style="width: 50%;">
-                        <img id="ba-img-before" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80" alt="Sebelum" class="absolute inset-0 w-full h-full object-cover max-w-none" id="before-img-inner">
+                        <img id="ba-img-before" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80" alt="Sebelum" class="absolute inset-0 w-full h-full object-cover max-w-none">
                     </div>
 
                     <span class="absolute top-6 left-6 bg-navyPrimary/90 backdrop-blur-md text-white text-xs font-bold px-4 py-2 rounded-lg">SEBELUM</span>
@@ -552,7 +552,7 @@
         </div>
     </div>
 
-    <!-- POP-UP DETAIL PRODUK (MODAL BOX) DENGAN IKON VISUAL -->
+    <!-- POP-UP DETAIL PRODUK -->
     <div id="product-detail-modal" class="fixed inset-0 bg-navyPrimary/90 z-50 hidden flex items-center justify-center p-4 backdrop-blur-md">
         <div class="bg-white rounded-2xl max-w-2xl w-full overflow-hidden border border-borderColor shadow-2xl relative">
             <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-navyPrimary/80 text-white rounded-full flex items-center justify-center hover:bg-bronzeGold hover:text-navyPrimary transition">
@@ -568,9 +568,7 @@
                     <hr class="border-borderColor">
                     <div>
                         <h4 class="font-bold text-xs uppercase text-navyPrimary mb-3"><i class="fas fa-list-check text-bronzeGold mr-2"></i> Rincian Spesifikasi Utama:</h4>
-                        <div id="modal-prod-desc" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slateText">
-                            <!-- Diisi dinamis via JS dengan ikon visual -->
-                        </div>
+                        <div id="modal-prod-desc" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slateText"></div>
                     </div>
                     <div class="pt-4 flex gap-4">
                         <button onclick="triggerPreRABModal()" class="flex-1 bg-bronzeGold text-navyPrimary font-bold py-3.5 rounded-xl text-xs uppercase tracking-widest hover:bg-navyPrimary hover:text-white transition shadow-md text-center">
@@ -582,7 +580,7 @@
         </div>
     </div>
 
-    <!-- POP-UP SEBELUM KE FORM RAB (PRE-RAB PROMOTION MODAL) -->
+    <!-- POP-UP PRE-RAB -->
     <div id="pre-rab-modal" class="fixed inset-0 bg-navyPrimary/90 z-50 hidden flex items-center justify-center p-4 backdrop-blur-md">
         <div class="bg-white rounded-2xl max-w-lg w-full p-8 border border-borderColor shadow-2xl relative text-center space-y-6">
             <button onclick="closePreRABModal()" class="absolute top-4 right-4 text-slateText hover:text-navyPrimary text-xl">
@@ -612,24 +610,6 @@
         </div>
     </div>
 
-    <!-- GLOBAL CROPPER MODAL (FITUR CROP OTOMATIS UNTUK SEMUA MENU UPLOAD FOTO) -->
-    <div id="global-cropper-modal" class="fixed inset-0 bg-navyPrimary/95 z-50 hidden flex items-center justify-center p-4 backdrop-blur-md">
-        <div class="bg-white rounded-2xl max-w-xl w-full p-6 border border-borderColor shadow-2xl relative space-y-4">
-            <div class="flex justify-between items-center border-b border-borderColor pb-3">
-                <h3 class="font-serif font-bold text-lg text-navyPrimary"><i class="fas fa-crop text-bronzeGold mr-2"></i> Sesuaikan Ukuran Foto (Crop)</h3>
-                <button onclick="closeCropperModal()" class="text-slateText hover:text-navyPrimary text-xl"><i class="fas fa-times"></i></button>
-            </div>
-            <p class="text-xs text-slateText">Geser dan sesuaikan area foto agar proporsional dengan frame di web utama.</p>
-            <div class="max-h-[50vh] overflow-hidden bg-navyPrimary rounded-xl flex items-center justify-center">
-                <img id="cropper-target-img" src="" class="max-h-[50vh] block max-w-full">
-            </div>
-            <div class="flex gap-3 pt-2">
-                <button onclick="closeCropperModal()" class="flex-1 bg-lightBg border border-borderColor text-navyPrimary font-bold py-3 rounded-xl text-xs uppercase tracking-widest hover:bg-borderColor transition">Batal</button>
-                <button onclick="confirmCropImage()" class="flex-1 bg-bronzeGold text-navyPrimary font-bold py-3 rounded-xl text-xs uppercase tracking-widest hover:bg-navyHover transition shadow-md">Simpan & Terapkan Crop</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Footer -->
     <footer class="bg-navyPrimary text-white py-12 border-t border-navySecondary">
         <div class="max-w-7xl mx-auto px-6 lg:px-12 text-center text-xs font-light">
@@ -640,14 +620,12 @@
         </div>
     </footer>
 
-    <!-- Cropper.js Library CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
-
     <!-- Firebase SDK & Konfigurasi -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
-        import { getDatabase } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getStorage } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAyuaw2p9dCsSMRNHwzPMVfZ9MHLs79-bU",
@@ -660,240 +638,132 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
         const db = getDatabase(app);
         window.firebaseDB = db;
+
+        // Sinkronisasi Real-Time Firebase ke Halaman Utama
+        window.addEventListener('DOMContentLoaded', () => {
+            // Video Hero
+            onValue(ref(db, 'settings/hero_video_url'), (snapshot) => {
+                const url = snapshot.val();
+                if (url) {
+                    const video = document.getElementById('main-hero-video');
+                    const source = document.getElementById('main-hero-source');
+                    if (video && source) {
+                        source.src = url;
+                        video.load();
+                        video.play().catch(() => {});
+                    }
+                }
+            });
+
+            // Banner Hero Card
+            onValue(ref(db, 'settings/hero_card'), (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    if (data.title) document.getElementById('hero-card-title-el').textContent = data.title;
+                    if (data.desc) document.getElementById('hero-card-desc-el').innerHTML = `<i class="fas fa-certificate text-bronzeGold mr-1"></i> ${data.desc}`;
+                    if (data.price) document.getElementById('hero-card-price-el').textContent = data.price;
+                    if (data.img) document.getElementById('hero-card-img-el').src = data.img;
+                }
+            });
+
+            // Floating Promo
+            onValue(ref(db, 'settings/floating_promo'), (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    if (data.title) document.getElementById('promo-badge-title').textContent = data.title;
+                    if (data.desc) document.getElementById('promo-badge-desc').textContent = data.desc;
+                }
+            });
+
+            // Identitas Perusahaan
+            onValue(ref(db, 'settings/company_identity'), (snapshot) => {
+                const identity = snapshot.val();
+                if (identity) {
+                    if (identity.name) {
+                        document.getElementById('brand-name-el').textContent = identity.name;
+                        document.getElementById('footer-brand-name').textContent = identity.name + ' & CONTRACTOR';
+                    }
+                    if (identity.tagline) {
+                        document.getElementById('brand-tagline-el').textContent = identity.tagline;
+                    }
+                    if (identity.logoImg) {
+                        const logoImg = document.getElementById('brand-logo-img');
+                        const logoText = document.getElementById('brand-logo-text');
+                        logoImg.src = identity.logoImg;
+                        logoImg.classList.remove('hidden');
+                        logoText.classList.add('hidden');
+                    } else if (identity.logoText) {
+                        const logoImg = document.getElementById('brand-logo-img');
+                        const logoText = document.getElementById('brand-logo-text');
+                        logoText.textContent = identity.logoText;
+                        logoText.classList.remove('hidden');
+                        logoImg.classList.add('hidden');
+                    }
+                }
+            });
+
+            // Profil Kontak & Kantor
+            onValue(ref(db, 'settings/office_profile'), (snapshot) => {
+                const profile = snapshot.val();
+                if (profile) {
+                    if (profile.wa) {
+                        window.activeWhatsAppNumber = profile.wa;
+                        document.getElementById('profile-display-wa').textContent = profile.wa;
+                        document.getElementById('floating-wa-btn').href = `https://wa.me/${profile.wa}?text=Halo%20Berkah%20Jaya%20Property,%20saya%20ingin%20konsultasi`;
+                        document.getElementById('nav-wa-btn').href = `https://wa.me/${profile.wa}?text=Halo%20Berkah%20Jaya%20Property,%20saya%20ingin%20konsultasi`;
+                        document.getElementById('modal-wa-consult').href = `https://wa.me/${profile.wa}?text=Halo%20Berkah%20Jaya%20Property,%20saya%20ingin%20konsultasi%20cepat`;
+                        document.getElementById('profile-btn-wa').href = `https://wa.me/${profile.wa}`;
+                    }
+                    if (profile.alamat) {
+                        document.getElementById('footer-dynamic-address').innerHTML = `<i class="fas fa-map-marker-alt text-bronzeGold mr-1"></i> Kantor Utama: ${profile.alamat}`;
+                        document.getElementById('profile-display-alamat').textContent = profile.alamat;
+                    }
+                }
+            });
+
+            // Produk
+            onValue(ref(db, 'products'), (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    window.firebaseProducts = Object.values(data);
+                    renderDynamicProducts('all');
+                }
+            });
+
+            // Galeri Proyek
+            onValue(ref(db, 'projects'), (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    window.firebaseProjects = Object.values(data);
+                    renderDynamicGallery();
+                }
+            });
+        });
     </script>
 
     <!-- JavaScript Engine -->
     <script>
-        const liveChannel = new BroadcastChannel('berkah_jaya_realtime');
         let activeProjectPhotos = [];
         let currentPhotoIndex = 0;
         let selectedProductTitle = '';
         let selectedProductCategory = '';
-        let activeWhatsAppNumber = '6281234567890';
-
-        // Variabel Global untuk Manajemen Cropper
-        let cropperInstance = null;
-        let activeCropCallback = null;
-        let activeCropAspectRatio = 16 / 9; // Default rasio proporsional web
-
-        // Fungsi Global Integrasi Crop pada File Input
-        function setupImageCropperInput(inputElementId, callback, aspectRatio = 16/9) {
-            const inputEl = document.getElementById(inputElementId);
-            if (!inputEl) return;
-            activeCropAspectRatio = aspectRatio;
-
-            inputEl.addEventListener('change', function(e) {
-                const files = e.target.files;
-                if (files && files.length > 0) {
-                    const reader = new FileReader();
-                    reader.onload = function(evt) {
-                        openCropperModal(evt.target.result, (croppedDataUrl) => {
-                            callback(croppedDataUrl);
-                        });
-                    };
-                    reader.readAsDataURL(files[0]);
-                }
-            });
-        }
-
-        function openCropperModal(imageSrc, onCropped) {
-            activeCropCallback = onCropped;
-            const modal = document.getElementById('global-cropper-modal');
-            const targetImg = document.getElementById('cropper-target-img');
-            targetImg.src = imageSrc;
-            modal.classList.remove('hidden');
-
-            if (cropperInstance) {
-                cropperInstance.destroy();
-            }
-
-            setTimeout(() => {
-                cropperInstance = new Cropper(targetImg, {
-                    aspectRatio: activeCropAspectRatio,
-                    viewMode: 1,
-                    autoCropArea: 1,
-                    responsive: true,
-                });
-            }, 150);
-        }
-
-        function closeCropperModal() {
-            document.getElementById('global-cropper-modal').classList.add('hidden');
-            if (cropperInstance) {
-                cropperInstance.destroy();
-                cropperInstance = null;
-            }
-        }
-
-        function confirmCropImage() {
-            if (cropperInstance) {
-                const canvas = cropperInstance.getCroppedCanvas({
-                    width: 1200,
-                    imageSmoothingEnabled: true,
-                    imageSmoothingQuality: 'high',
-                });
-                const croppedDataUrl = canvas.toDataURL('image/jpeg', 0.9);
-                if (activeCropCallback) {
-                    activeCropCallback(croppedDataUrl);
-                }
-                closeCropperModal();
-            }
-        }
+        window.activeWhatsAppNumber = '6281234567890';
 
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+        if(menuBtn) menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
 
         function closeFloatingPromo() {
             const promoBox = document.getElementById('floating-promo-box');
             if (promoBox) promoBox.style.display = 'none';
         }
 
-        function openGalleryDB() {
-            return new Promise((resolve, reject) => {
-                const req = indexedDB.open('BerkahJayaGalleryDB', 2);
-                req.onupgradeneeded = (e) => {
-                    const db = e.target.result;
-                    if (!db.objectStoreNames.contains('projects')) {
-                        db.createObjectStore('projects', { keyPath: 'id' });
-                    }
-                };
-                req.onsuccess = (e) => resolve(e.target.result);
-                req.onerror = (e) => reject(e.target.error);
-            });
-        }
-
-        function openVideoDB() {
-            return new Promise((resolve, reject) => {
-                const request = indexedDB.open('BerkahJayaDB', 2);
-                request.onsuccess = (e) => resolve(e.target.result);
-                request.onerror = (e) => reject(e.target.error);
-            });
-        }
-
-        async function getAllProjectsFromDB() {
-            try {
-                const db = await openGalleryDB();
-                return new Promise((resolve, reject) => {
-                    const tx = db.transaction('projects', 'readonly');
-                    const store = tx.objectStore('projects');
-                    const req = store.getAll();
-                    req.onsuccess = () => resolve(req.result);
-                    req.onerror = (e) => reject(e.target.error);
-                });
-            } catch (e) {
-                return [];
-            }
-        }
-
-        async function applyUploadedHeroVideo() {
-            try {
-                const db = await openVideoDB();
-                const tx = db.transaction('videos', 'readonly');
-                const store = tx.objectStore('videos');
-                const request = store.get('hero_video');
-
-                request.onsuccess = () => {
-                    const videoBlob = request.result;
-                    if (videoBlob) {
-                        const heroVideo = document.getElementById('main-hero-video');
-                        const heroSource = document.getElementById('main-hero-source');
-                        if (heroVideo && heroSource) {
-                            const videoUrl = URL.createObjectURL(videoBlob);
-                            heroSource.src = videoUrl;
-                            heroVideo.load();
-                            heroVideo.play().catch(() => {});
-                        }
-                    }
-                };
-            } catch (e) {}
-        }
-
-        function applyHeroCardProfile() {
-            const data = JSON.parse(localStorage.getItem('admin_hero_card') || 'null');
-            if (data) {
-                if (data.title) document.getElementById('hero-card-title-el').textContent = data.title;
-                if (data.desc) document.getElementById('hero-card-desc-el').innerHTML = `<i class="fas fa-certificate text-bronzeGold mr-1"></i> ${data.desc}`;
-                if (data.price) document.getElementById('hero-card-price-el').textContent = data.price;
-                if (data.img) document.getElementById('hero-card-img-el').src = data.img;
-            }
-        }
-
-        function applyFloatingPromo() {
-            const promo = JSON.parse(localStorage.getItem('admin_floating_promo') || 'null');
-            if (promo) {
-                if (promo.title) document.getElementById('promo-badge-title').textContent = promo.title;
-                if (promo.desc) document.getElementById('promo-badge-desc').textContent = promo.desc;
-            }
-        }
-
-        function applyCompanyIdentity() {
-            const identity = JSON.parse(localStorage.getItem('admin_company_identity') || 'null');
-            if (identity) {
-                if (identity.name) {
-                    document.getElementById('brand-name-el').textContent = identity.name;
-                    document.getElementById('footer-brand-name').textContent = identity.name + ' & CONTRACTOR';
-                }
-                if (identity.tagline) {
-                    document.getElementById('brand-tagline-el').textContent = identity.tagline;
-                }
-                if (identity.logoImg) {
-                    const logoImg = document.getElementById('brand-logo-img');
-                    const logoText = document.getElementById('brand-logo-text');
-                    logoImg.src = identity.logoImg;
-                    logoImg.classList.remove('hidden');
-                    logoText.classList.add('hidden');
-                } else if (identity.logoText) {
-                    const logoImg = document.getElementById('brand-logo-img');
-                    const logoText = document.getElementById('brand-logo-text');
-                    logoText.textContent = identity.logoText;
-                    logoText.classList.remove('hidden');
-                    logoImg.classList.add('hidden');
-                }
-            }
-        }
-
-        function applyOfficeProfile() {
-            const profile = JSON.parse(localStorage.getItem('admin_office_profile') || 'null');
-            if (profile) {
-                if (profile.wa) activeWhatsAppNumber = profile.wa;
-                if (profile.alamat) {
-                    const addrEl = document.getElementById('footer-dynamic-address');
-                    if (addrEl) addrEl.innerHTML = `<i class="fas fa-map-marker-alt text-bronzeGold mr-1"></i> Kantor Utama: ${profile.alamat}`;
-
-                    const profileAddrEl = document.getElementById('profile-display-alamat');
-                    if (profileAddrEl) profileAddrEl.textContent = profile.alamat;
-                }
-                if (profile.wa) {
-                    const profileWaEl = document.getElementById('profile-display-wa');
-                    if (profileWaEl) profileWaEl.textContent = profile.wa;
-                }
-            }
-
-            const floatWA = document.getElementById('floating-wa-btn');
-            if (floatWA) floatWA.href = `https://wa.me/${activeWhatsAppNumber}?text=Halo%20Berkah%20Jaya%20Property,%20saya%20ingin%20konsultasi%20mengenai%20proyek%20konstruksi`;
-
-            const navWA = document.getElementById('nav-wa-btn');
-            if (navWA) navWA.href = `https://wa.me/${activeWhatsAppNumber}?text=Halo%20Berkah%20Jaya%20Property,%20saya%20ingin%20konsultasi`;
-
-            const modalWA = document.getElementById('modal-wa-consult');
-            if (modalWA) modalWA.href = `https://wa.me/${activeWhatsAppNumber}?text=Halo%20Berkah%20Jaya%20Property,%20saya%20ingin%20konsultasi%20cepat%20mengenai%20penawaran%20RAB`;
-
-            const profileBtnWA = document.getElementById('profile-btn-wa');
-            if (profileBtnWA) profileBtnWA.href = `https://wa.me/${activeWhatsAppNumber}?text=Halo%20Berkah%20Jaya%20Property,%20saya%20ingin%20menghubungi%20kantor`;
-        }
-
         function formatSpecsWithIcons(descText) {
             if (!descText) return '';
             const items = descText.split(/[,.]+/).map(i => i.trim()).filter(i => i.length > 0);
-            
-            const iconsList = [
-                'fa-layer-group', 'fa-cubes', 'fa-th-large', 'fa-house-chimney', 
-                'fa-hammer', 'fa-paint-roller', 'fa-shield-halved', 'fa-bolt'
-            ];
+            const iconsList = ['fa-layer-group', 'fa-cubes', 'fa-th-large', 'fa-house-chimney', 'fa-hammer', 'fa-paint-roller', 'fa-shield-halved', 'fa-bolt'];
 
             return items.map((item, idx) => {
                 const iconClass = iconsList[idx % iconsList.length];
@@ -919,7 +789,7 @@
             const container = document.getElementById('dynamic-products-grid');
             if (!container) return;
 
-            let products = JSON.parse(localStorage.getItem('admin_products') || JSON.stringify(defaultProducts));
+            let products = window.firebaseProducts || defaultProducts;
             if (filterCategory !== 'all') {
                 products = products.filter(p => p.kategori === filterCategory);
             }
@@ -975,9 +845,7 @@
             document.getElementById('modal-prod-category').textContent = kategori;
             document.getElementById('modal-prod-price').innerHTML = `Rp ${parseInt(harga).toLocaleString('id-ID')} <span class="text-xs font-sans text-slateText font-normal">/ m²</span>`;
             document.getElementById('modal-prod-img').src = gambar;
-            
             document.getElementById('modal-prod-desc').innerHTML = formatSpecsWithIcons(deskripsi);
-
             document.getElementById('product-detail-modal').classList.remove('hidden');
         }
 
@@ -1009,14 +877,13 @@
             document.getElementById('download-katalog').scrollIntoView({ behavior: 'smooth' });
         }
 
-        async function renderDynamicGallery() {
+        function renderDynamicGallery() {
             const container = document.getElementById('dynamic-gallery-grid');
             if (!container) return;
 
-            const projects = await getAllProjectsFromDB();
-
+            const projects = window.firebaseProjects || [];
             if (projects.length === 0) {
-                container.innerHTML = `<div class="col-span-full text-center py-12 text-slateText text-xs font-semibold">Belum ada album proyek di galeri. Silakan tambahkan lewat Panel Admin.</div>`;
+                container.innerHTML = `<div class="col-span-full text-center py-12 text-slateText text-xs font-semibold">Belum ada album proyek di galeri.</div>`;
                 return;
             }
 
@@ -1051,8 +918,8 @@
             }
         }
 
-        async function openProjectModal(projectId) {
-            const projects = await getAllProjectsFromDB();
+        function openProjectModal(projectId) {
+            const projects = window.firebaseProjects || [];
             const project = projects.find(p => p.id === projectId);
             if (!project || project.photos.length === 0) return;
 
@@ -1061,7 +928,6 @@
 
             document.getElementById('modal-project-title').textContent = project.judul;
             document.getElementById('modal-project-category').textContent = project.kategori;
-            
             updateModalPhoto();
             document.getElementById('project-lightbox-modal').classList.remove('hidden');
         }
@@ -1092,21 +958,8 @@
             const kategori = document.getElementById('lead-kategori').value;
             const pesanan = document.getElementById('lead-pesanan').value;
 
-            const newLead = {
-                id: 'RAB-' + Date.now().toString().slice(-4),
-                nama, wa, kategori, pesanan,
-                status: 'Belum Ditindaklanjuti',
-                tanggal: new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }),
-                timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
-            };
-
-            let leads = JSON.parse(localStorage.getItem('admin_leads') || '[]');
-            leads.unshift(newLead);
-            localStorage.setItem('admin_leads', JSON.stringify(leads));
-            liveChannel.postMessage({ type: 'NEW_LEAD', data: newLead });
-
             const message = `Halo Admin Berkah Jaya Property, nama saya *${nama}* (${wa}).%0A%0AMeminta penawaran RAB:%0A- *Kategori*: ${kategori}%0A- *Pesanan*: ${pesanan}`;
-            window.open(`https://wa.me/${activeWhatsAppNumber}?text=${message}`, '_blank');
+            window.open(`https://wa.me/${window.activeWhatsAppNumber}?text=${message}`, '_blank');
         }
 
         function sendSurveyRequest(e) {
@@ -1117,20 +970,8 @@
             const layanan = document.getElementById('survey-layanan').value;
             const tanggal = document.getElementById('survey-tanggal').value;
 
-            const newSurvey = {
-                id: 'SRV-' + Date.now().toString().slice(-4),
-                nama, hp, alamat, layanan, tanggal,
-                status: 'Belum Ditindaklanjuti',
-                timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
-            };
-
-            let surveys = JSON.parse(localStorage.getItem('admin_surveys') || '[]');
-            surveys.unshift(newSurvey);
-            localStorage.setItem('admin_surveys', JSON.stringify(surveys));
-            liveChannel.postMessage({ type: 'NEW_SURVEY', data: newSurvey });
-
             const message = `Halo Berkah Jaya Property, saya *Request Survey Lokasi Gratis*:%0A- *Nama*: ${nama}%0A- *HP*: ${hp}%0A- *Alamat*: ${alamat}%0A- *Layanan*: ${layanan}%0A- *Tanggal*: ${tanggal}`;
-            window.open(`https://wa.me/${activeWhatsAppNumber}?text=${message}`, '_blank');
+            window.open(`https://wa.me/${window.activeWhatsAppNumber}?text=${message}`, '_blank');
         }
 
         const calcType = document.getElementById('calc-type');
@@ -1151,7 +992,7 @@
         function orderCalcWA() {
             const selectedText = calcType.options[calcType.selectedIndex].text;
             const message = `Halo Berkah Jaya Property, saya ingin konsultasi penawaran harga:%0A- *Layanan*: ${selectedText}%0A- *Luas*: ${calcArea.value} m²%0A- *Estimasi*: ${calcTotal.textContent}`;
-            window.open(`https://wa.me/${activeWhatsAppNumber}?text=${message}`, '_blank');
+            window.open(`https://wa.me/${window.activeWhatsAppNumber}?text=${message}`, '_blank');
         }
 
         const sliderInput = document.getElementById('before-after-slider');
@@ -1165,26 +1006,6 @@
                 sliderHandle.style.left = `${val}%`;
             });
         }
-
-        liveChannel.onmessage = (event) => {
-            if (event.data.type === 'PRODUCTS_UPDATED') renderDynamicProducts();
-            if (event.data.type === 'PROJECTS_UPDATED') renderDynamicGallery();
-            if (event.data.type === 'PROFILE_UPDATED') applyOfficeProfile();
-            if (event.data.type === 'HERO_CARD_UPDATED') applyHeroCardProfile();
-            if (event.data.type === 'PROMO_UPDATED') applyFloatingPromo();
-            if (event.data.type === 'IDENTITY_UPDATED') applyCompanyIdentity();
-        };
-
-        window.addEventListener('DOMContentLoaded', () => {
-            renderDynamicProducts();
-            renderDynamicGallery();
-            applyUploadedHeroVideo();
-            applyHeroCardProfile();
-            applyOfficeProfile();
-            applyFloatingPromo();
-            applyCompanyIdentity();
-            calculateBiaya();
-        });
     </script>
 </body>
 </html>
