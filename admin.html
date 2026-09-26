@@ -641,7 +641,7 @@
 
         function openVideoDB() {
             return new Promise((resolve, reject) => {
-                const req = indexedDB.open('BerkahJayaDB', 1);
+                const req = indexedDB.open('BerkahJayaDB', 2);
                 req.onupgradeneeded = (e) => {
                     const db = e.target.result;
                     if (!db.objectStoreNames.contains('videos')) {
