@@ -643,6 +643,28 @@
     <!-- Cropper.js Library CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 
+    <!-- Firebase SDK & Konfigurasi -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+        import { getDatabase } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAyuaw2p9dCsSMRNHwzPMVfZ9MHLs79-bU",
+            authDomain: "berkahjayaproperty-12b04.firebaseapp.com",
+            projectId: "berkahjayaproperty-12b04",
+            storageBucket: "berkahjayaproperty-12b04.firebasestorage.app",
+            messagingSenderId: "914878815605",
+            appId: "1:914878815605:web:3ee041cabc815e5ce0073c",
+            measurementId: "G-CZ53CRG7Y4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getDatabase(app);
+        window.firebaseDB = db;
+    </script>
+
     <!-- JavaScript Engine -->
     <script>
         const liveChannel = new BroadcastChannel('berkah_jaya_realtime');
